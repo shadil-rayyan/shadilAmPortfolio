@@ -1,7 +1,7 @@
 {
   "name": "shadil-am-portfoliowebsite",
   "version": "0.1.0",
-  "homepage": "https://shadil-rayyan.github.io/portofilowebsite",
+"homepage": "https://shadil-rayyan.github.io/portofilowebsite",
   "dependencies": {
     "@emailjs/browser": "^3.11.0",
     "@emotion/react": "^11.11.0",
