@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/portofilowebsite/static/css/main.bf538fe7.css",
-    "main.js": "/portofilowebsite/static/js/main.3cfa9b00.js",
+    "main.js": "/portofilowebsite/static/js/main.7459b2dc.js",
     "static/media/HeroImage.jpg": "/portofilowebsite/static/media/HeroImage.6d0926c3c885370b487b.jpg",
     "index.html": "/portofilowebsite/index.html",
     "main.bf538fe7.css.map": "/portofilowebsite/static/css/main.bf538fe7.css.map",
-    "main.3cfa9b00.js.map": "/portofilowebsite/static/js/main.3cfa9b00.js.map"
+    "main.7459b2dc.js.map": "/portofilowebsite/static/js/main.7459b2dc.js.map"
   },
   "entrypoints": [
     "static/css/main.bf538fe7.css",
-    "static/js/main.3cfa9b00.js"
+    "static/js/main.7459b2dc.js"
   ]
 }
