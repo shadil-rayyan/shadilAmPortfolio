@@ -6,7 +6,7 @@
     "role": "Software Engineer Intern",
     "company": "Zendalona, Palkkad",
     "date": "Oct 2023 - March 2025",
-    "desc": "Resolved critical Orca screen reader bugs in Accessible Coconut, improving accessibility for over 1,000 users, and contributed to the release of Accessible Coconut 24. Automated 30+ test cases for Sharadha Braille Writer, significantly enhancing usability and reliability for visually impaired users. Developed and executed cross-platform Cypress tests for World Map Explorer, an accessible map for the visually impaired, ensuring compatibility across Ubuntu, macOS, and Windows. Implemented CI/CD pipelines using GitHub Actions to streamline and improve testing efficiency.",
+    "desc": "Improved product reliability and accessibility for over 1,000 users by resolving critical screen reader bugs, automating 30+ test cases for a Braille writer which enhanced usability, and developing cross-platform tests to ensure broad compatibility.",
     "skills": [
       "ReactJS",
       "Redux",
@@ -23,7 +23,7 @@
     "role": "Software Engineer Intern",
     "company": "Investing Wisely",
     "date": "Oct 2022 - Oct 2023",
-    "desc": "Led the design, development, and prototyping of the Darsana Scholarship System from scratch, including coding the system, designing its architecture, and ensuring robust security. Contributed to streamlining testing processes, which significantly improved bug fix speed and system stability. Actively managed project workflows using Jira, coordinating tasks and tracking progress. Led regular meetings with the team and mentor, setting agendas, driving discussions, and providing updates on project milestones to ensure alignment with project goals and deadlines.",
+    "desc": "Accelerated bug resolution and system stability by leading the full-stack design, development, and prototyping of a scholarship management system, and actively managing the project workflow using Jira to ensure alignment with goals and deadlines.",
     "skills": ["Next.js", "System Design", "Project Management", "Jira", "Security"]
   }
 ]
