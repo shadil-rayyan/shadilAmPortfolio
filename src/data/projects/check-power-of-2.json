@@ -1,0 +1,4 @@
+
+{
+  "longDescription": "This is a lightweight and efficient NPM package that determines if a given number is a power of 2. It provides a simple utility for developers to use in mathematical computations and algorithms where such a check is necessary. The package is optimized for performance and is easy to integrate into any Node.js project."
+}

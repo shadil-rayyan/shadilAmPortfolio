@@ -1,0 +1,4 @@
+
+{
+  "longDescription": "This project involved developing a machine learning model to predict a person's face shape (e.g., oval, square, round) from an image. This technology has applications in personalized beauty and fashion recommendations, virtual try-on systems for glasses, and augmented reality filters. The model was built using computer vision techniques and a custom-trained classifier."
+}
