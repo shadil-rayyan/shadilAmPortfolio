@@ -1,8 +1,5 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { collection, getDocs, limit, query } from "firebase/firestore";
-import { db } from "@/lib/firebase";
 import { Section, SectionTitle } from "@/components/section-wrapper";
 import {
   Card,
@@ -17,49 +14,17 @@ import Image from "next/image";
 import Link from "next/link";
 import { Badge } from "@/components/ui/badge";
 import { ArrowRight, Github } from "lucide-react";
-import { Skeleton } from "@/components/ui/skeleton";
 import type { Project } from "@/lib/types";
+import allProjectsData from '@/data/projects.json';
 
-async function getProjects(): Promise<Project[]> {
-    const q = query(collection(db, "projects"), limit(6));
-    const querySnapshot = await getDocs(q);
-    const projects: Project[] = [];
-    querySnapshot.forEach((doc) => {
-        projects.push({ id: doc.id, ...doc.data() } as Project);
-    });
-    return projects;
-}
+const featuredProjects = allProjectsData.slice(0, 6);
 
 export function ProjectsSection() {
-  const [projects, setProjects] = useState<Project[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
-
-  useEffect(() => {
-    async function fetchProjects() {
-      try {
-        const fetchedProjects = await getProjects();
-        setProjects(fetchedProjects);
-      } catch (e) {
-        console.error("Failed to fetch projects", e);
-        setError("Could not load projects. Please try again later.");
-      } finally {
-        setIsLoading(false);
-      }
-    }
-    fetchProjects();
-  }, []);
-
   return (
     <Section id="projects">
       <SectionTitle>Featured Projects</SectionTitle>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" style={{ perspective: "1000px" }}>
-        {isLoading ? (
-            Array.from({ length: 3 }).map((_, i) => <Skeleton key={i} className="h-96 w-full" />)
-        ) : error ? (
-            <p className="text-destructive col-span-full text-center">{error}</p>
-        ) : (
-            projects.map((project) => (
+        {featuredProjects.map((project: Project) => (
             <Card key={project.slug} className="flex flex-col overflow-hidden group transition-all duration-300 hover:shadow-xl transform-gpu hover:-translate-y-2 hover:rotate-x-4 hover:rotate-y-4" style={{ transformStyle: "preserve-3d" }}>
                 <CardHeader className="p-0">
                 <Link href={project.link} className="block relative h-48 w-full overflow-hidden">
@@ -95,8 +60,7 @@ export function ProjectsSection() {
                     </div>
                 </CardFooter>
             </Card>
-            ))
-        )}
+            ))}
       </div>
       <div className="mt-12 text-center">
         <Button asChild variant="outline" size="lg">

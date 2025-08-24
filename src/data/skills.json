@@ -1,0 +1,26 @@
+[
+  {
+    "id": "1",
+    "icon": "Code",
+    "title": "Frontend Development",
+    "description": "Crafting responsive and performant user interfaces with modern frameworks like React and Next.js. Proficient in HTML, CSS, and JavaScript/TypeScript."
+  },
+  {
+    "id": "2",
+    "icon": "Server",
+    "title": "Backend Development",
+    "description": "Building robust and scalable server-side applications and APIs. Experienced with Node.js, Express, and serverless architectures."
+  },
+  {
+    "id": "3",
+    "icon": "Database",
+    "title": "Database Management",
+    "description": "Designing and managing relational and NoSQL databases. Skilled in SQL (PostgreSQL) and NoSQL (MongoDB, Firebase) technologies."
+  },
+  {
+    "id": "4",
+    "icon": "Palette",
+    "title": "UI/UX Design",
+    "description": "A keen eye for design and user experience. Creating intuitive and accessible interfaces using Figma and following modern design principles."
+  }
+]

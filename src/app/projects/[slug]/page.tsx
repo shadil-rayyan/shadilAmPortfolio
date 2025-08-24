@@ -1,8 +1,6 @@
 'use client';
 
 import { useState, useEffect } from "react";
-import { collection, query, where, getDocs, doc, getDoc } from "firebase/firestore";
-import { db } from "@/lib/firebase";
 import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
 import { Badge } from "@/components/ui/badge";
@@ -11,15 +9,11 @@ import Link from "next/link";
 import { ArrowLeft, Github, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import type { Project } from "@/lib/types";
+import allProjectsData from "@/data/projects.json";
 
-async function getProject(slug: string): Promise<Project | null> {
-  const q = query(collection(db, "projects"), where("slug", "==", slug));
-  const querySnapshot = await getDocs(q);
-  if (querySnapshot.empty) {
-    return null;
-  }
-  const docData = querySnapshot.docs[0].data();
-  return { id: querySnapshot.docs[0].id, ...docData } as Project;
+function getProject(slug: string): Project | null {
+  const project = allProjectsData.find(p => p.slug === slug);
+  return project || null;
 }
 
 export default function ProjectDetailsPage({ params }: { params: { slug: string } }) {
@@ -28,18 +22,19 @@ export default function ProjectDetailsPage({ params }: { params: { slug: string 
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    async function fetchProject() {
-      try {
-        const fetchedProject = await getProject(params.slug);
+    try {
+      const fetchedProject = getProject(params.slug);
+      if (fetchedProject) {
         setProject(fetchedProject);
-      } catch (e) {
-        console.error("Failed to fetch project", e);
-        setError("Failed to load project data.");
-      } finally {
-        setIsLoading(false);
+      } else {
+        setError("Project not found.");
       }
+    } catch (e) {
+      console.error("Failed to fetch project", e);
+      setError("Failed to load project data.");
+    } finally {
+      setIsLoading(false);
     }
-    fetchProject();
   }, [params.slug]);
 
 

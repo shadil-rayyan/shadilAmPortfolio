@@ -1,8 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { collection, getDocs } from "firebase/firestore";
-import { db } from "@/lib/firebase";
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -24,39 +22,14 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Github, Loader2 } from "lucide-react";
+import { Github } from "lucide-react";
 import { BackToTop } from "@/components/back-to-top";
 import type { Project } from "@/lib/types";
-
-
-async function getProjects(): Promise<Project[]> {
-  const projectsCol = collection(db, "projects");
-  const projectSnapshot = await getDocs(projectsCol);
-  const projectList = projectSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() } as Project));
-  return projectList;
-}
+import allProjectsData from "@/data/projects.json";
 
 export default function ProjectsPage() {
-  const [allProjectsData, setAllProjectsData] = useState<Project[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
   const [filter, setFilter] = useState("All");
 
-  useEffect(() => {
-    async function fetchProjects() {
-      try {
-        const projects = await getProjects();
-        setAllProjectsData(projects);
-      } catch (e) {
-        console.error("Failed to fetch projects", e);
-        setError("Could not load projects. Please try again later.");
-      } finally {
-        setIsLoading(false);
-      }
-    }
-    fetchProjects();
-  }, []);
-  
   const categories = ["All", ...Array.from(new Set(allProjectsData.map(p => p.category)))];
 
   const filteredProjects =
@@ -65,21 +38,9 @@ export default function ProjectsPage() {
       : allProjectsData.filter((project) => project.category === filter);
 
   const renderContent = () => {
-    if (isLoading) {
-      return (
-        <div className="flex justify-center items-center h-64">
-            <Loader2 className="h-16 w-16 animate-spin" />
-        </div>
-      );
-    }
-
-    if (error) {
-        return <p className="text-center text-destructive">{error}</p>
-    }
-
     return (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8" style={{ perspective: "1000px" }}>
-            {filteredProjects.map((project) => (
+            {filteredProjects.map((project: Project) => (
               <Card key={project.slug} className="flex flex-col overflow-hidden group transition-all duration-300 hover:shadow-xl transform-gpu hover:-translate-y-2 hover:rotate-x-4 hover:rotate-y-4" style={{ transformStyle: "preserve-3d" }}>
                 <CardHeader className="p-0">
                   <Link href={project.link} className="block relative h-48 w-full overflow-hidden">
@@ -132,7 +93,7 @@ export default function ProjectsPage() {
             Browse through my collection of projects.
           </p>
           <div className="flex justify-center mb-12">
-            <Select onValueChange={setFilter} defaultValue={filter} disabled={isLoading || !!error}>
+            <Select onValueChange={setFilter} defaultValue={filter}>
               <SelectTrigger className="w-[180px]">
                 <SelectValue placeholder="Filter by category" />
               </SelectTrigger>

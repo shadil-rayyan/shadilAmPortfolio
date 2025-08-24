@@ -1,0 +1,80 @@
+[
+  {
+    "id": "1",
+    "slug": "portfolio-booster",
+    "title": "Portfolio Booster",
+    "description": "An AI-powered platform to help developers create and enhance their professional portfolios.",
+    "longDescription": "Portfolio Booster is a comprehensive tool that uses generative AI to help developers write compelling project descriptions, generate professional-looking placeholder images, and get feedback on their portfolio's structure and content. It's built with Next.js and integrates with various AI APIs.",
+    "image": "https://placehold.co/1200x600.png",
+    "imageHint": "AI robot portfolio",
+    "link": "/projects/portfolio-booster",
+    "githubLink": "#",
+    "tags": ["Next.js", "AI", "SaaS", "TypeScript"],
+    "category": "Web"
+  },
+  {
+    "id": "2",
+    "slug": "e-commerce-suite",
+    "title": "E-commerce Suite",
+    "description": "A headless e-commerce solution with a customizable storefront and a powerful admin dashboard.",
+    "longDescription": "This project provides a complete e-commerce backend with features like product management, order processing, and customer accounts. The frontend is a highly performant and SEO-friendly storefront built with modern web technologies, designed to be easily customized.",
+    "image": "https://placehold.co/1200x600.png",
+    "imageHint": "online shopping cart",
+    "link": "/projects/e-commerce-suite",
+    "githubLink": "#",
+    "tags": ["React", "Node.js", "GraphQL", "Stripe"],
+    "category": "Web"
+  },
+  {
+    "id": "3",
+    "slug": "dev-diaries",
+    "title": "Dev Diaries",
+    "description": "A blogging platform for developers with markdown support and syntax highlighting.",
+    "longDescription": "Dev Diaries is a clean, minimalist blogging platform designed for developers. It features a powerful markdown editor, code syntax highlighting, and a focus on readability. It's built to be lightweight and fast, providing a great reading and writing experience.",
+    "image": "https://placehold.co/1200x600.png",
+    "imageHint": "developer blog code",
+    "link": "/projects/dev-diaries",
+    "githubLink": "#",
+    "tags": ["Next.js", "Markdown", "Contentful", "Vercel"],
+    "category": "Web"
+  },
+  {
+    "id": "4",
+    "slug": "task-tracker-mobile",
+    "title": "Task Tracker Mobile",
+    "description": "A cross-platform mobile app for managing tasks and projects on the go.",
+    "longDescription": "Built with React Native, this app allows users to create, organize, and track their tasks and projects seamlessly across iOS and Android devices. It features offline support, push notifications, and a clean, intuitive user interface.",
+    "image": "https://placehold.co/1200x600.png",
+    "imageHint": "mobile to-do list",
+    "link": "/projects/task-tracker-mobile",
+    "githubLink": "#",
+    "tags": ["React Native", "Firebase", "Mobile App"],
+    "category": "Mobile"
+  },
+  {
+    "id": "5",
+    "slug": "finance-dashboard",
+    "title": "Finance Dashboard",
+    "description": "A data visualization dashboard for tracking personal investments and expenses.",
+    "longDescription": "This application provides users with a clear and interactive way to visualize their financial data. It connects to various financial data sources and uses charting libraries to create beautiful and informative graphs and charts, helping users make better financial decisions.",
+    "image": "https://placehold.co/1200x600.png",
+    "imageHint": "financial charts graph",
+    "link": "/projects/finance-dashboard",
+    "githubLink": "#",
+    "tags": ["React", "D3.js", "Data-Viz", "Plaid API"],
+    "category": "Web"
+  },
+  {
+    "id": "6",
+    "slug": "real-time-chat",
+    "title": "Real-time Chat App",
+    "description": "A web-based chat application demonstrating WebSocket technology for instant messaging.",
+    "longDescription": "This project is a real-time chat application that allows users to join chat rooms and communicate instantly. It's built with Node.js and Socket.IO on the backend, with a simple and clean React frontend. It showcases the power of WebSockets for building interactive, real-time web applications.",
+    "image": "https://placehold.co/1200x600.png",
+    "imageHint": "chat bubbles messaging",
+    "link": "/projects/real-time-chat",
+    "githubLink": "#",
+    "tags": ["Node.js", "Socket.IO", "React", "WebSockets"],
+    "category": "Web"
+  }
+]

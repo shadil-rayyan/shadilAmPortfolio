@@ -1,0 +1,16 @@
+[
+  {
+    "id": "1",
+    "degree": "Master of Science in Computer Science",
+    "institution": "Stanford University",
+    "period": "2020 - 2022",
+    "description": "Focused on Artificial Intelligence and Human-Computer Interaction. Published a paper on generative models for UI design."
+  },
+  {
+    "id": "2",
+    "degree": "Bachelor of Science in Software Engineering",
+    "institution": "University of California, Berkeley",
+    "period": "2016 - 2020",
+    "description": "Graduated with honors. Lead developer for the senior capstone project, a mobile app for campus event discovery."
+  }
+]
