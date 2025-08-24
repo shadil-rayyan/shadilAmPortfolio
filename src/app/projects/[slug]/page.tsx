@@ -11,9 +11,8 @@ import { Button } from "@/components/ui/button";
 import type { Project } from "@/lib/types";
 import allProjectsData from "@/data/projects.json";
 
-function getProject(slug: string): Project | null {
-  const project = allProjectsData.find(p => p.slug === slug);
-  return project || null;
+function getProject(slug: string): Project | undefined {
+  return allProjectsData.find(p => p.slug === slug);
 }
 
 export default function ProjectDetailsPage({ params }: { params: { slug: string } }) {
