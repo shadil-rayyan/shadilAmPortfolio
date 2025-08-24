@@ -4,18 +4,17 @@ import { Section, SectionTitle } from "@/components/section-wrapper";
 import {
   Card,
   CardContent,
-  CardDescription,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Code, Database, Palette, Server } from "lucide-react";
+import { Code, Database, Smartphone, Server } from "lucide-react";
 import skillsData from '@/data/skills.json';
 
 const icons = {
     Code: <Code className="w-8 h-8 text-primary" />,
     Server: <Server className="w-8 h-8 text-primary" />,
     Database: <Database className="w-8 h-8 text-primary" />,
-    Palette: <Palette className="w-8 h-8 text-primary" />,
+    Smartphone: <Smartphone className="w-8 h-8 text-primary" />,
 };
 
 type IconName = keyof typeof icons;
@@ -41,7 +40,7 @@ export function SkillsSection() {
               <CardTitle>{skill.title}</CardTitle>
               </CardHeader>
               <CardContent>
-              <CardDescription>{skill.description}</CardDescription>
+              <p className="text-muted-foreground">{skill.description}</p>
               </CardContent>
           </Card>
         ))}

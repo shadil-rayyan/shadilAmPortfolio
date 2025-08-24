@@ -1,16 +1,24 @@
+
 [
   {
+    "id": "0",
+    "degree": "Bachelor of Technology - BTech, Computer Science and Engineering",
+    "institution": "Government Enginerring college sreekrishnapuram",
+    "period": "Oct 2022 - jun 2026",
+    "description": "I am currently pursuing a Bachelor's degree in Computer Science and Engineering at Gec Skp. I have completed 4 semesters and have a CGPA of 7.36. I have taken courses in Data Structures, Algorithms, Object-Oriented Programming, Database Management Systems, Operating Systems, and Computer Networks, among others."
+  },
+  {
     "id": "1",
-    "degree": "Master of Science in Computer Science",
-    "institution": "Stanford University",
-    "period": "2020 - 2022",
-    "description": "Focused on Artificial Intelligence and Human-Computer Interaction. Published a paper on generative models for UI design."
+    "degree": "higher secondary school certificate",
+    "institution": "Thirunvangoor higher secondary school",
+    "period": "Apr 2020 - Mar 2022",
+    "description": "I completed my class 12 high school education at Thirunvangoor School, Dankuni, where I studied Science with PCMB."
   },
   {
     "id": "2",
-    "degree": "Bachelor of Science in Software Engineering",
-    "institution": "University of California, Berkeley",
-    "period": "2016 - 2020",
-    "description": "Graduated with honors. Lead developer for the senior capstone project, a mobile app for campus event discovery."
+    "degree": "secondary school leaving certificate",
+    "institution": "Thirunvangoor higher secondary school",
+    "period": "Apr 2019 - Apr 2020",
+    "description": "I completed my class 10 education at Thirunvangoor School, kerala, where I studied Science with Computer Application."
   }
 ]
