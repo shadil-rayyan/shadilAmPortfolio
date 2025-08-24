@@ -15,6 +15,12 @@ interface HeroData {
   image: string;
 }
 
+const fallbackData: HeroData = {
+    headline: "Full-Stack Developer",
+    description: "I build fast, responsive, and user-friendly web applications. Let's create something amazing together.",
+    image: "https://placehold.co/600x600.png"
+}
+
 export function HeroSection() {
   const [heroData, setHeroData] = useState<HeroData | null>(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -26,9 +32,12 @@ export function HeroSection() {
         const docSnap = await getDoc(docRef);
         if (docSnap.exists()) {
           setHeroData(docSnap.data() as HeroData);
+        } else {
+          setHeroData(fallbackData);
         }
       } catch (error) {
         console.error('Error fetching hero data:', error);
+        setHeroData(fallbackData);
       } finally {
         setIsLoading(false);
       }
