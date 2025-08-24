@@ -5,7 +5,6 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowLeft, Github } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { ProjectSummary } from "@/components/project-summary";
 import { allProjectsData } from "@/lib/projects-data";
 
 export default function ProjectDetailsPage({ params }: { params: { slug: string } }) {
@@ -75,8 +74,6 @@ export default function ProjectDetailsPage({ params }: { params: { slug: string 
             <div className="prose prose-lg dark:prose-invert max-w-none mx-auto text-foreground/80 mb-12">
               <p>{project.longDescription}</p>
             </div>
-
-            <ProjectSummary project={project} />
 
           </article>
         </div>
