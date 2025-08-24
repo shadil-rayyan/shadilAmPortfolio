@@ -1,19 +1,15 @@
-'use client';
 
-import { useState, useEffect } from "react";
 import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
 import { Badge } from "@/components/ui/badge";
 import Link from "next/link";
-import { ArrowLeft, Github, Loader2 } from "lucide-react";
+import { ArrowLeft, Github } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import type { Project } from "@/lib/types";
 import allProjects from "@/data/projects.json";
+import { notFound } from "next/navigation";
 import type { Metadata } from 'next';
 
-// This function can't be used for metadata as it's client-side fetched.
-// For server-side metadata, you would use generateMetadata export.
-// But since this is a client component, we'll manage title with useEffect.
 async function getProjectDetails(slug: string): Promise<Project | undefined> {
     try {
         const project = allProjects.find(p => p.slug === slug);
@@ -28,99 +24,34 @@ async function getProjectDetails(slug: string): Promise<Project | undefined> {
     }
 }
 
+export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
+  const project = await getProjectDetails(params.slug);
 
-export default function ProjectDetailsPage({ params }: { params: { slug: string } }) {
-  const [project, setProject] = useState<Project | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
-
-  useEffect(() => {
-    const fetchProject = async () => {
-      try {
-        const fetchedProject = await getProjectDetails(params.slug);
-        if (fetchedProject) {
-          setProject(fetchedProject);
-          document.title = `${fetchedProject.title} | Shadil AM`;
-        } else {
-          setError("Project not found.");
-          document.title = "Project Not Found | Shadil AM";
-        }
-      } catch (e) {
-        console.error("Failed to fetch project", e);
-        setError("Failed to load project data.");
-        document.title = "Error | Shadil AM";
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
-    fetchProject();
-  }, [params.slug]);
-
-
-  const renderContent = () => {
-    if (isLoading) {
-      return (
-        <div className="flex-grow flex items-center justify-center">
-          <Loader2 className="h-16 w-16 animate-spin" />
-        </div>
-      );
+  if (!project) {
+    return {
+      title: "Project Not Found"
     }
+  }
 
-    if (error || !project) {
-       return (
-        <div className="text-center">
-            <h1 className="text-4xl font-bold">{error ? 'Error' : 'Project Not Found'}</h1>
-            <p className="mt-4 text-muted-foreground">
-                {error || "Sorry, we couldn't find the project you're looking for."}
-            </p>
-            <Link href="/" className="mt-6 inline-block text-primary hover:underline">
-                Back to homepage
-            </Link>
-        </div>
-      );
-    }
+  return {
+    title: project.title,
+    description: project.longDescription || project.description,
+  }
+}
 
-    return (
-        <article className="max-w-4xl mx-auto">
-          <h1 className="text-4xl md:text-5xl font-extrabold tracking-tighter mb-4 text-primary">
-            {project.title}
-          </h1>
-          <div className="flex flex-wrap items-center gap-4 mb-8">
-            <div className="flex flex-wrap gap-2">
-              {project.tags.map((tag) => (
-                <Badge key={tag} variant="secondary">
-                  {tag}
-                </Badge>
-              ))}
-            </div>
-            {project.github && (
-              <Button asChild variant="outline" size="sm">
-                <Link href={project.github} target="_blank">
-                  <Github className="mr-2 h-4 w-4" />
-                  View on GitHub
-                </Link>
-              </Button>
-            )}
-          </div>
-           {project.video && (
-             <div className="relative w-full h-64 md:h-96 mb-8 rounded-lg overflow-hidden shadow-lg bg-muted">
-                <video
-                    src={project.video}
-                    autoPlay
-                    loop
-                    muted
-                    playsInline
-                    className="object-cover w-full h-full"
-                />
-            </div>
-          )}
-          <div className="prose prose-lg dark:prose-invert max-w-none mx-auto text-foreground/80 mb-12">
-            <p>{project.longDescription}</p>
-          </div>
-        </article>
-    );
-  };
+export async function generateStaticParams() {
+  return allProjects.map((project) => ({
+    slug: project.slug,
+  }));
+}
+
+
+export default async function ProjectDetailsPage({ params }: { params: { slug: string } }) {
+  const project = await getProjectDetails(params.slug);
+
+  if (!project) {
+    notFound();
+  }
 
   return (
     <div className="flex flex-col min-h-screen">
@@ -135,7 +66,43 @@ export default function ProjectDetailsPage({ params }: { params: { slug: string 
                     </Link>
                 </Button>
             </div>
-          {renderContent()}
+             <article className="max-w-4xl mx-auto">
+              <h1 className="text-4xl md:text-5xl font-extrabold tracking-tighter mb-4 text-primary">
+                {project.title}
+              </h1>
+              <div className="flex flex-wrap items-center gap-4 mb-8">
+                <div className="flex flex-wrap gap-2">
+                  {project.tags.map((tag) => (
+                    <Badge key={tag} variant="secondary">
+                      {tag}
+                    </Badge>
+                  ))}
+                </div>
+                {project.github && (
+                  <Button asChild variant="outline" size="sm">
+                    <Link href={project.github} target="_blank">
+                      <Github className="mr-2 h-4 w-4" />
+                      View on GitHub
+                    </Link>
+                  </Button>
+                )}
+              </div>
+              {project.video && (
+                <div className="relative w-full h-64 md:h-96 mb-8 rounded-lg overflow-hidden shadow-lg bg-muted">
+                    <video
+                        src={project.video}
+                        autoPlay
+                        loop
+                        muted
+                        playsInline
+                        className="object-cover w-full h-full"
+                    />
+                </div>
+              )}
+              <div className="prose prose-lg dark:prose-invert max-w-none mx-auto text-foreground/80 mb-12">
+                <p>{project.longDescription}</p>
+              </div>
+            </article>
         </div>
       </main>
       <Footer />

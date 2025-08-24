@@ -2,12 +2,14 @@
 import type {NextConfig} from 'next';
 
 const isGithubActions = process.env.GITHUB_ACTIONS === 'true'
+const repoName = 'shadil-portfolio';
 
 const nextConfig: NextConfig = {
   /* config options here */
   output: 'export',
-  basePath: isGithubActions ? '/shadil-portfolio/' : '',
-  assetPrefix: isGithubActions ? '/shadil-portfolio/' : '',
+  basePath: isGithubActions ? `/${repoName}` : '',
+  assetPrefix: isGithubActions ? `/${repoName}/` : '',
+
   typescript: {
     ignoreBuildErrors: true,
   },
