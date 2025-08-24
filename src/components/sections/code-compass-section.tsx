@@ -16,7 +16,7 @@ export function CodeCompassSection() {
           <div className="grid md:grid-cols-3 items-center">
             <div className="md:col-span-1 p-6 flex justify-center">
               <Image
-                src="https://avatars.githubusercontent.com/u/142013915?s=200&v=4"
+                src="https://media.licdn.com/dms/image/v2/D4E0BAQH6G7qM_kXtQw/company-logo_100_100/B4EZY4bplgG0AU-/0/1744703495192/codecompassindiawebsite_logo?e=1758758400&v=beta&t=UipvCiXQ4ZXNy-1iKibSGburcGIAusnzvTJrBHlgZfc"
                 alt="CodeCompass Logo"
                 width={150}
                 height={150}
