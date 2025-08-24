@@ -35,9 +35,9 @@ export function SkillsSection() {
   return (
     <Section id="skills" className="bg-muted/40">
       <SectionTitle>What I Do</SectionTitle>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8" style={{ perspective: "1000px" }}>
         {skills.map((skill, index) => (
-          <Card key={index} className="text-center transition-transform duration-300 hover:-translate-y-2">
+          <Card key={index} className="text-center transition-all duration-300 transform-gpu hover:-translate-y-2 hover:rotate-x-4 hover:rotate-y-4 hover:shadow-xl" style={{ transformStyle: "preserve-3d" }}>
             <CardHeader className="items-center">
               <div className="p-4 bg-primary/10 rounded-full mb-4">
                 {skill.icon}
