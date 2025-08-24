@@ -76,7 +76,7 @@ export default function ProjectsPage() {
                 <CardFooter className="p-6 pt-0">
                     <div className="flex items-center gap-4">
                         <Button asChild>
-                            <Link href={`/projects/${project.slug}`}>View Project</Link>
+                            <Link href={`/projects/${project.slug}`}>Read More</Link>
                         </Button>
                         {project.github && (
                             <Button asChild variant="secondary">

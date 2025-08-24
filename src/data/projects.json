@@ -8,7 +8,8 @@
     "image": "https://user-images.githubusercontent.com/64485885/234602896-a1bd8bcc-b72b-4821-83d6-8ad885bf435e.png",
     "imageHint": "scholarship management education",
     "tags": ["Next.js", "Node.js", "Web Development", "Education"],
-    "category": "web app"
+    "category": "web app",
+    "github": "https://github.com/shadil-rayyan/ScholarshipMangementSystem"
   },
   {
     "id": "1",
@@ -18,7 +19,8 @@
     "image": "https://user-images.githubusercontent.com/64485885/234602896-a1bd8bcc-b72b-4821-83d6-8ad885bf435e.png",
     "imageHint": "opportunities hackathon platform",
     "tags": ["Next.js", "Node.js", "Web Development", "Opportunities"],
-    "category": "web app"
+    "category": "web app",
+    "github": "https://github.com/CodeCompasss/code_compass_india"
   },
   {
     "id": "2",
@@ -28,7 +30,8 @@
     "image": "https://user-images.githubusercontent.com/64485885/234602896-a1bd8bcc-b72b-4821-83d6-8ad885bf435e.png",
     "imageHint": "student projects archive",
     "tags": ["Next.js", "Node.js", "Web Development", "Education"],
-    "category": "web app"
+    "category": "web app",
+    "github": "https://github.com/CodeCompasss/gecian_archive"
   },
   {
     "id": "3",
@@ -38,7 +41,8 @@
     "image": "https://user-images.githubusercontent.com/64485885/234602896-a1bd8bcc-b72b-4821-83d6-8ad885bf435e.png",
     "imageHint": "telegram bot food",
     "tags": ["Python", "Telebot", "Telegram", "Culinary"],
-    "category": "Bots and Packages"
+    "category": "Bots and Packages",
+    "github": "https://github.com/rishavchanda/Podstreamkk"
   },
   {
     "id": "4",
@@ -48,7 +52,8 @@
     "image": "https://user-images.githubusercontent.com/64485885/234602896-a1bd8bcc-b72b-4821-83d6-8ad885bf435e.png",
     "imageHint": "kerala tourism travel",
     "tags": ["Python", "Telebot", "Telegram", "Travel"],
-    "category": "Bots and Packages"
+    "category": "Bots and Packages",
+    "github": "https://github.com/rishavchanda/Project-Management-App"
   },
   {
     "id": "5",
@@ -58,7 +63,8 @@
     "image": "https://user-images.githubusercontent.com/64485885/234602896-a1bd8bcc-b72b-4821-83d6-8ad885bf435e.png",
     "imageHint": "food blog cooking",
     "tags": ["Next.js", "Node.js", "Web Development", "Blogging"],
-    "category": "web app"
+    "category": "web app",
+    "github": "https://github.com/shadil-rayyan/cs-108_StackUp"
   },
   {
     "id": "6",
@@ -68,7 +74,8 @@
     "image": "https://user-images.githubusercontent.com/64485885/234602896-a1bd8bcc-b72b-4821-83d6-8ad885bf435e.png",
     "imageHint": "math code package",
     "tags": ["Node.js", "NPM", "Mathematics", "Utility"],
-    "category": "Bots and Packages"
+    "category": "Bots and Packages",
+    "github": "https://github.com/shadil-rayyan/check_power_of_two_npm_package"
   },
   {
     "id": "7",
@@ -78,7 +85,8 @@
     "image": "https://user-images.githubusercontent.com/64485885/234602896-a1bd8bcc-b72b-4821-83d6-8ad885bf435e.png",
     "imageHint": "business website electric",
     "tags": ["HTML", "CSS", "Web Development", "Business"],
-    "category": "web app"
+    "category": "web app",
+    "github": "https://github.com/shadil-rayyan/nenmini-electric_website"
   },
   {
     "id": "8",
@@ -88,7 +96,8 @@
     "image": "https://user-images.githubusercontent.com/64485885/234602896-a1bd8bcc-b72b-4821-83d6-8ad885bf435e.png",
     "imageHint": "laptop price machinelearning",
     "tags": ["Streamlit", "Machine Learning", "Web Development", "Data Science"],
-    "category": "machine learning"
+    "category": "machine learning",
+    "github": "https://github.com/shadil-rayyan/My_Projects/tree/main/MachineLearning/LaptopPricePredicator%20-clone"
   },
   {
     "id": "9",
@@ -98,7 +107,8 @@
     "image": "https://user-images.githubusercontent.com/64485885/234602896-a1bd8bcc-b72b-4821-83d6-8ad885bf435e.png",
     "imageHint": "hacking cybersecurity guide",
     "tags": ["Cybersecurity", "Education", "Resources", "Ethical Hacking"],
-    "category": "Bots and Packages"
+    "category": "Bots and Packages",
+    "github": "https://github.com/shadil-rayyan/EthicalHackingGuide"
   },
   {
     "id": "10",
@@ -108,7 +118,8 @@
     "image": "https://user-images.githubusercontent.com/64485885/234602896-a1bd8bcc-b72b-4821-83d6-8ad885bf435e.png",
     "imageHint": "face shape machinelearning",
     "tags": ["Streamlit", "machine learning", "Computer Vision", "AI"],
-    "category": "machine learning"
+    "category": "machine learning",
+    "github": "https://github.com/shadil-rayyan/face-shape-detector"
   },
   {
     "id": "11",
@@ -118,6 +129,7 @@
     "image": "https://user-images.githubusercontent.com/64485885/234602896-a1bd8bcc-b72b-4821-83d6-8ad885bf435e.png",
     "imageHint": "telegram bot techdeals",
     "tags": ["Python", "Telegram Bot", "E-commerce", "Deals"],
-    "category": "Bots and Packages"
+    "category": "Bots and Packages",
+    "github": ""
   }
 ]
