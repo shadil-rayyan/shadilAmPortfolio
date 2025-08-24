@@ -13,10 +13,10 @@
       "description": "Creating robust APIs and server-side applications with Node.js and Express."
     },
     {
-      "id": "3",
-      "icon": "Database",
-      "title": "Database Management",
-      "description": "Working with SQL and NoSQL databases like MySQL, PostgreSQL, and MongoDB."
+        "id": "3",
+        "icon": "Database",
+        "title": "Data Science",
+        "description": "Working with data, building predictive models and creating data visualizations."
     },
     {
         "id": "4",
