@@ -84,5 +84,16 @@ body {
   }
   body {
     @apply bg-background text-foreground;
+    background-image: linear-gradient(to bottom right, hsl(var(--background)), hsl(var(--secondary)));
   }
+}
+
+.project-card-border {
+    position: relative;
+    border: 1px solid transparent;
+}
+
+.project-card-border:hover {
+    border-image: linear-gradient(to bottom right, hsl(var(--primary)), hsl(var(--chart-2)), hsl(var(--chart-4))) 1;
+    box-shadow: 0 0 15px 0 hsl(var(--primary) / 0.5);
 }

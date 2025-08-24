@@ -23,9 +23,9 @@ export function ProjectsSection() {
   return (
     <Section id="projects">
       <SectionTitle>Featured Projects</SectionTitle>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" style={{ perspective: "1000px" }}>
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         {featuredProjects.map((project: Project) => (
-            <Card key={project.slug} className="flex flex-col overflow-hidden group transition-all duration-300 hover:shadow-xl transform-gpu hover:-translate-y-2 hover:rotate-x-4 hover:rotate-y-4" style={{ transformStyle: "preserve-3d" }}>
+            <Card key={project.slug} className="project-card-border flex flex-col overflow-hidden group transition-all duration-300 hover:shadow-xl hover:-translate-y-2">
                 <CardHeader className="p-0">
                 <Link href={`/projects/${project.slug}`} className="block relative h-48 w-full overflow-hidden">
                     <Image
