@@ -3,7 +3,6 @@
 import {
   Code,
   GraduationCap,
-  Home,
   LayoutDashboard,
   LogOut,
   Palette,
@@ -27,7 +26,6 @@ const navLinks: {
   label: string;
   icon: LucideIcon;
 }[] = [
-  {href: '/admin', label: 'Dashboard', icon: LayoutDashboard},
   {href: '/admin/hero', label: 'Hero', icon: Sparkles},
   {href: '/admin/education', label: 'Education', icon: GraduationCap},
   {href: '/admin/skills', label: 'Skills', icon: Code},
@@ -46,14 +44,7 @@ export function AdminSidebar() {
 
   return (
     <aside className="hidden w-16 flex-col border-r bg-background sm:flex">
-      <nav className="flex flex-col items-center gap-4 px-2 py-4">
-        <Link
-          href="/"
-          className="group flex h-9 w-9 shrink-0 items-center justify-center gap-2 rounded-full bg-primary text-lg font-semibold text-primary-foreground md:h-8 md:w-8 md:text-base"
-        >
-          <Code className="h-4 w-4 transition-all group-hover:scale-110" />
-          <span className="sr-only">DevFolio</span>
-        </Link>
+      <nav className="flex flex-col items-center gap-4 px-2 py-4 mt-auto">
         <TooltipProvider>
           {navLinks.map((link) => (
             <Tooltip key={link.href}>
