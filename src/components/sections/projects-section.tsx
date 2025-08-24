@@ -17,7 +17,7 @@ import { ArrowRight, Github } from "lucide-react";
 import type { Project } from "@/lib/types";
 import allProjectsData from '@/data/projects.json';
 
-const featuredProjects = allProjectsData.slice(0, 6);
+const featuredProjects = allProjectsData.slice(0, 3);
 
 export function ProjectsSection() {
   return (
