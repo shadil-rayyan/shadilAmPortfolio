@@ -11,6 +11,72 @@
     "category": "web app",
     "github": "https://github.com/shadil-rayyan/ScholarshipMangementSystem"
   },
+   {
+    "id": "2",
+    "slug": "maths_mantra",
+    "title": "Maths Mantra",
+    "description": " Math Learning app made for the blind students built as part Gosc 2025 Zendalona",
+    "image": "https://th.bing.com/th/id/OIP.A-n2h1Vw-iRyc_g28aSAyAHaEo?rs=1&pid=ImgDetMain",
+    "imageHint": "student project",
+    "tags": ["Next.js", "Node.js", "Web Development", "Education"],
+    "category": "web app",
+    "github": "https://github.com/shadil-rayyan/Math-Mantra"
+  },
+  {
+    "id": "2",
+    "slug": "Project_archive",
+    "title": "Project Archive",
+    "description": "Developed a dedicated platform for students to showcase and archive their projects, fostering a culture of collaboration and innovation within the institution.",
+    "image": "https://th.bing.com/th/id/OIP.A-n2h1Vw-iRyc_g28aSAyAHaEo?rs=1&pid=ImgDetMain",
+    "imageHint": "student project",
+    "tags": ["Next.js", "Node.js", "Web Development", "Education"],
+    "category": "web app",
+    "github": "https://github.com/shadil-rayyan/gecian_archive"
+  },
+  {
+    "id": "2",
+    "slug": "project-collaboration",
+    "title": "Project Collaboration",
+    "description": "Developed a dedicated platform for  students to  collaborate on their projects, fostering a culture of teamwork and innovation within the institution.",
+    "image": "https://th.bing.com/th/id/OIP.A-n2h1Vw-iRyc_g28aSAyAHaEo?rs=1&pid=ImgDetMain",
+    "imageHint": "student project",
+    "tags": ["Next.js", "Node.js", "Web Development", "Education"],
+    "category": "web app",
+    "github": "https://github.com/shadil-rayyan/Project_Collab"
+  },
+  {
+    "id": "2",
+    "slug": "nearby_hostels",
+    "title": "Nearby Hostels",
+    "description": "Developed a dedicated platform for collges to showcase their nearby PG and Hostels",
+    "image": "https://th.bing.com/th/id/OIP.A-n2h1Vw-iRyc_g28aSAyAHaEo?rs=1&pid=ImgDetMain",
+    "imageHint": "student project",
+    "tags": ["Next.js", "Node.js", "Web Development", "Education"],
+    "category": "web app",
+    "github": "https://github.com/shadil-rayyan/NearbyHostel"
+  },
+ {
+    "id": "1",
+    "slug": "plantolgica",
+    "title": "plantlogica",
+    "description": "built as part of smart india hackathon 2025 internal hackathon  2nd winner",
+    "image": "https://th.bing.com/th/id/OIP.A-n2h1Vw-iRyc_g28aSAyAHaEo?rs=1&pid=ImgDetMain",
+    "imageHint": "career opportunity",
+    "tags": ["Next.js", "Node.js", "Web Development", "Opportunities"],
+    "category": "web app",
+    "github": "https://github.com/shadil-rayyan/plantologica"
+  },
+  {
+    "id": "1",
+    "slug": "cse_starter_guide",
+    "title": "Cse starter guide",
+    "description": "it is a platform where can get all the resources to start your journey in computer science engineering ",
+    "image": "https://th.bing.com/th/id/OIP.A-n2h1Vw-iRyc_g28aSAyAHaEo?rs=1&pid=ImgDetMain",
+    "imageHint": "career opportunity",
+    "tags": ["Next.js", "Node.js", "Web Development", "Opportunities"],
+    "category": "web app",
+    "github": "https://github.com/shadil-rayyan/cse-student-starter-guide"
+  },
   {
     "id": "1",
     "slug": "repeto",
@@ -20,40 +86,29 @@
     "imageHint": "career opportunity",
     "tags": ["Next.js", "Node.js", "Web Development", "Opportunities"],
     "category": "web app",
-    "github": "https://github.com/CodeCompasss/code_compass_india"
+    "github": "https://github.com/shadil-rayyan/repeto.git"
   },
   {
     "id": "2",
-    "slug": "gecian-archive",
-    "title": "GECian Archive",
-    "description": "Developed a dedicated platform for GEC Palakkad students to showcase and archive their projects, fostering a culture of collaboration and innovation within the institution.",
+    "slug": "devsetup",
+    "title": "DevSetup",
+    "description": "A platform to get terminal install commands of various tools ",
     "image": "https://th.bing.com/th/id/OIP.A-n2h1Vw-iRyc_g28aSAyAHaEo?rs=1&pid=ImgDetMain",
     "imageHint": "student project",
     "tags": ["Next.js", "Node.js", "Web Development", "Education"],
     "category": "web app",
-    "github": "https://github.com/CodeCompasss/gecian_archive"
+    "github": "https://github.com/shadil-rayyan/DevSetup"
   },
-  {
-    "id": "3",
-    "slug": "kerala-food-spot",
-    "title": "Kerala Food Spot",
-    "description": "Developed a Telegram bot to guide users to authentic dishes and restaurants in Kozhikode city, enhancing culinary exploration for locals and tourists alike.",
+    {
+    "id": "2",
+    "slug": "rss_cse_setup",
+    "title": "RSS CSE Setup",
+    "description": "it is a platform where can get opml code of various enginerring blogs newletters according to your choice ",
     "image": "https://th.bing.com/th/id/OIP.A-n2h1Vw-iRyc_g28aSAyAHaEo?rs=1&pid=ImgDetMain",
-    "imageHint": "indian food",
-    "tags": ["Python", "Telebot", "Telegram", "Culinary"],
-    "category": "Bots and Packages",
-    "github": "https://github.com/rishavchanda/Podstreamkk"
-  },
-  {
-    "id": "4",
-    "slug": "kerala-tourist-spot",
-    "title": "Kerala Tourist Spot",
-    "description": "Created a platform to highlight famous and hidden tourist spots in Kerala, providing travelers with curated information to enrich their travel experiences.",
-    "image": "https://th.bing.com/th/id/OIP.A-n2h1Vw-iRyc_g28aSAyAHaEo?rs=1&pid=ImgDetMain",
-    "imageHint": "kerala travel",
-    "tags": ["Python", "Telebot", "Telegram", "Travel"],
-    "category": "Bots and Packages",
-    "github": "https://github.com/rishavchanda/Project-Management-App"
+    "imageHint": "student project",
+    "tags": ["Next.js", "Node.js", "Web Development", "Education"],
+    "category": "web app",
+    "github": "https://github.com/shadil-rayyan/rss_cse_setup"
   },
   {
     "id": "5",
@@ -118,8 +173,30 @@
     "image": "https://th.bing.com/th/id/OIP.A-n2h1Vw-iRyc_g28aSAyAHaEo?rs=1&pid=ImgDetMain",
     "imageHint": "ai face",
     "tags": ["Streamlit", "machine learning", "Computer Vision", "AI"],
-    "category": "machine learning",
+    "category": "web app",
     "github": "https://github.com/shadil-rayyan/face-shape-detector"
+  },
+  {
+    "id": "3",
+    "slug": "kerala-food-spot",
+    "title": "Kerala Food Spot",
+    "description": "Developed a Telegram bot to guide users to authentic dishes and restaurants in Kozhikode city, enhancing culinary exploration for locals and tourists alike.",
+    "image": "https://th.bing.com/th/id/OIP.A-n2h1Vw-iRyc_g28aSAyAHaEo?rs=1&pid=ImgDetMain",
+    "imageHint": "indian food",
+    "tags": ["Python", "Telebot", "Telegram", "Culinary"],
+    "category": "Bots and Packages",
+    "github": "https://github.com/shadil-rayyan/kerala_food_spot-bot.git"
+  },
+  {
+    "id": "4",
+    "slug": "kerala-tourist-spot",
+    "title": "Kerala Tourist Spot",
+    "description": "Created a platform to highlight famous and hidden tourist spots in Kerala, providing travelers with curated information to enrich their travel experiences.",
+    "image": "https://th.bing.com/th/id/OIP.A-n2h1Vw-iRyc_g28aSAyAHaEo?rs=1&pid=ImgDetMain",
+    "imageHint": "kerala travel",
+    "tags": ["Python", "Telebot", "Telegram", "Travel"],
+    "category": "Bots and Packages",
+    "github": "https://github.com/shadil-rayyan/kerala_tourist_spot-bot"
   },
   {
     "id": "11",
@@ -130,6 +207,6 @@
     "imageHint": "tech deals",
     "tags": ["Python", "Telegram Bot", "E-commerce", "Deals"],
     "category": "Bots and Packages",
-    "github": ""
+    "github": "https://github.com/shadil-rayyan/TechExpert.git"
   }
 ]
