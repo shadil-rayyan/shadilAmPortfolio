@@ -1,63 +1,33 @@
 "use server";
 
 import { db } from "@/lib/db/index";
-import { users } from "@/lib/db/schema";
 import { blogs } from "@/lib/db/schema";
 import { eq } from "drizzle-orm";
-import { lucia } from "@/lib/auth";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
-import { verify } from "@node-rs/argon2";
-import { generateIdFromEntropySize } from "lucia";
 import { revalidatePath } from "next/cache"; 
+import { validateRequest } from "@/lib/auth-utils";
+import { adminAuth } from "./firebase/firebaseadmin";
+import { generateIdFromEntropySize } from "lucia";
 
-export async function login(prevState: any, formData: FormData) {
-  const username = formData.get("username");
-  if (typeof username !== "string" || username.length < 3 || username.length > 31) {
-    return { error: "Invalid username" };
-  }
-  const password = formData.get("password");
-  if (typeof password !== "string" || password.length < 6 || password.length > 255) {
-    return { error: "Invalid password" };
-  }
-
-  const [existingUser] = await db.select().from(users).where(eq(users.username, username.toLowerCase()));
-  if (!existingUser) {
-    return { error: "Incorrect username or password" };
-  }
-
-  const validPassword = await verify(existingUser.passwordHash, password, {
-    memoryCost: 19456,
-    timeCost: 2,
-    outputLen: 32,
-    parallelism: 1,
-  });
-
-  if (!validPassword) {
-    return { error: "Incorrect username or password" };
-  }
-
-  const session = await lucia.createSession(existingUser.id, {});
-  const sessionCookie = lucia.createSessionCookie(session.id);
-  (await cookies()).set(sessionCookie.name, sessionCookie.value, sessionCookie.attributes);
-
-  return redirect("/admin");
+export async function createSession(idToken: string) {
+    const expiresIn = 60 * 60 * 24 * 5 * 1000; // 5 days
+    const sessionCookie = await adminAuth.createSessionCookie(idToken, { expiresIn });
+    
+    (await cookies()).set("__session", sessionCookie, {
+        maxAge: expiresIn,
+        httpOnly: true,
+        secure: process.env.NODE_ENV === "production",
+        path: "/",
+    });
+    
+    return { success: true };
 }
 
 export async function logout() {
-  const { session } = await validateRequest();
-  if (!session) {
-    return { error: "Unauthorized" };
-  }
-
-  await lucia.invalidateSession(session.id);
-
-  const sessionCookie = lucia.createBlankSessionCookie();
-  (await cookies()).set(sessionCookie.name, sessionCookie.value, sessionCookie.attributes);
-  return redirect("/admin/login");
+    (await cookies()).set("__session", "", { maxAge: 0 });
+    return redirect("/admin/login");
 }
-
-import { validateRequest } from "@/lib/auth-utils";
 
 export async function createBlogPost(prevState: any, formData: FormData) {
   const { session } = await validateRequest();
@@ -88,6 +58,7 @@ export async function createBlogPost(prevState: any, formData: FormData) {
     return { error: "Slug already exists or database error" };
   }
 
+  revalidatePath("/blog");
   return redirect("/admin");
 }
 

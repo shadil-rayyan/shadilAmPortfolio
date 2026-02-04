@@ -6,7 +6,6 @@ const repoName = 'portofilowebsite';
 
 const nextConfig: NextConfig = {
   /* config options here */
-  output: 'export',
   basePath: isGithubActions ? `/${repoName}` : '',
   assetPrefix: isGithubActions ? `/${repoName}/` : '',
 
