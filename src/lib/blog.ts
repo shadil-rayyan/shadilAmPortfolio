@@ -1,4 +1,4 @@
-import { db } from './db';
+import { db } from './db/index';
 import { blogs } from './db/schema';
 import { desc, eq, and } from 'drizzle-orm';
 
