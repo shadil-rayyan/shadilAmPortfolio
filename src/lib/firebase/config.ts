@@ -14,7 +14,8 @@ const firebaseConfig = {
   measurementId: process.env.NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID,
 };
 
-const isConfigValid = Object.values(firebaseConfig).every(Boolean);
+const { measurementId, ...requiredConfig } = firebaseConfig;
+const isConfigValid = Object.values(requiredConfig).every(Boolean);
 
 export const firebaseApp: FirebaseApp | null = isConfigValid
   ? (getApps().length === 0

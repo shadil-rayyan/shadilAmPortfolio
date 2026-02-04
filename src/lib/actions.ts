@@ -11,6 +11,9 @@ import { adminAuth } from "./firebase/firebaseadmin";
 import { nanoid } from "nanoid";
 
 export async function createSession(idToken: string) {
+    const decodedToken = await adminAuth.verifyIdToken(idToken);
+    const email = decodedToken.email;
+
     const expiresIn = 60 * 60 * 24 * 5 * 1000; // 5 days
     const sessionCookie = await adminAuth.createSessionCookie(idToken, { expiresIn });
     
@@ -59,6 +62,43 @@ export async function createBlogPost(prevState: any, formData: FormData) {
   }
 
   revalidatePath("/blog");
+  return redirect("/admin");
+}
+
+export async function updateBlogPost(prevState: any, formData: FormData) {
+  const { session } = await validateRequest();
+  if (!session) return { error: "Unauthorized" };
+
+  const id = formData.get("id") as string;
+  const title = formData.get("title") as string;
+  const slug = formData.get("slug") as string;
+  const description = formData.get("description") as string;
+  const content = formData.get("content") as string;
+  const tags = formData.get("tags") as string;
+  const published = formData.get("published") === "on";
+
+  if (!id || !title || !slug || !content) {
+    return { error: "Missing required fields" };
+  }
+
+  try {
+    await db.update(blogs)
+      .set({
+        title,
+        slug,
+        description,
+        content,
+        tags,
+        published,
+        updatedAt: new Date(),
+      })
+      .where(eq(blogs.id, id));
+  } catch (e) {
+    return { error: "Slug already exists or database error" };
+  }
+
+  revalidatePath("/blog");
+  revalidatePath(`/blog/${slug}`);
   return redirect("/admin");
 }
 
