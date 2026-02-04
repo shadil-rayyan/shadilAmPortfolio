@@ -1,4 +1,4 @@
-import { db } from "@/lib/db";
+import { db } from "@/lib/db/index";
 import { users } from "@/lib/db/schema";
 import { blogs } from "@/lib/db/schema";
 import { eq } from "drizzle-orm";
@@ -7,6 +7,7 @@ import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import { verify } from "@node-rs/argon2";
 import { generateIdFromEntropySize } from "lucia";
+import { revalidatePath } from "next/cache"; 
 
 export async function login(prevState: any, formData: FormData) {
   const username = formData.get("username");
@@ -86,4 +87,14 @@ export async function createBlogPost(prevState: any, formData: FormData) {
   }
 
   return redirect("/admin");
+}
+
+export async function deleteBlogPost(id: string) {
+  const { session } = await validateRequest();
+  if (!session) return { error: "Unauthorized" };
+
+  await db.delete(blogs).where(eq(blogs.id, id));
+  revalidatePath("/blog");
+  revalidatePath("/admin");
+  return { success: true };
 }

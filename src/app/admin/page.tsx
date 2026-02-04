@@ -1,12 +1,13 @@
 import { validateRequest } from "@/lib/auth-utils";
 import { redirect } from "next/navigation";
-import { db } from "@/lib/db";
+import { db } from "@/lib/db/index";
 import { blogs } from "@/lib/db/schema";
 import { Button } from "@/components/ui/button";
 import { Header } from "@/components/header";
 import Link from "next/link";
 import { Plus, LogOut, FileText } from "lucide-react";
-import { logout } from "@/lib/actions";
+import { logout, deleteBlogPost } from "@/lib/actions";
+import { revalidatePath } from "next/cache";
 
 export default async function AdminDashboard() {
   const { user, session } = await validateRequest();
@@ -31,7 +32,10 @@ export default async function AdminDashboard() {
                 <Plus className="mr-2 h-4 w-4" /> New Post
               </Link>
             </Button>
-            <form action={logout}>
+              <form action={async () => {
+              "use server";
+              await logout();
+            }}>
               <Button variant="outline" type="submit">
                 <LogOut className="mr-2 h-4 w-4" /> Logout
               </Button>
@@ -59,7 +63,7 @@ export default async function AdminDashboard() {
                   </tr>
                 </thead>
                 <tbody>
-                  {allBlogs.map((blog) => (
+                  {allBlogs.map((blog: any) => (
                     <tr key={blog.id} className="border-b last:border-0 hover:bg-muted/30 transition-colors">
                       <td className="p-4 font-medium">{blog.title}</td>
                       <td className="p-4">
@@ -72,10 +76,16 @@ export default async function AdminDashboard() {
                       <td className="p-4 text-sm text-muted-foreground">
                         {blog.createdAt ? new Date(blog.createdAt).toLocaleDateString() : 'N/A'}
                       </td>
-                      <td className="p-4 text-right">
+                      <td className="p-4 text-right flex justify-end gap-2">
                         <Button variant="ghost" size="sm" asChild>
                           <Link href={`/admin/blog/edit/${blog.id}`}>Edit</Link>
                         </Button>
+                        <form action={async () => {
+                          "use server";
+                          await deleteBlogPost(blog.id);
+                        }}>
+                          <Button variant="ghost" size="sm" className="text-destructive hover:text-destructive hover:bg-destructive/10">Delete</Button>
+                        </form>
                       </td>
                     </tr>
                   ))}
