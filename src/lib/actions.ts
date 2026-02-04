@@ -8,7 +8,7 @@ import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache"; 
 import { validateRequest } from "@/lib/auth-utils";
 import { adminAuth } from "./firebase/firebaseadmin";
-import { generateIdFromEntropySize } from "lucia";
+import { nanoid } from "nanoid";
 
 export async function createSession(idToken: string) {
     const expiresIn = 60 * 60 * 24 * 5 * 1000; // 5 days
@@ -46,7 +46,7 @@ export async function createBlogPost(prevState: any, formData: FormData) {
 
   try {
     await db.insert(blogs).values({
-      id: generateIdFromEntropySize(10),
+      id: nanoid(),
       title,
       slug,
       description,

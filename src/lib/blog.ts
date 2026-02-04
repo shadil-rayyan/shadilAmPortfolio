@@ -31,6 +31,7 @@ export async function getAllPosts(): Promise<Omit<BlogPost, 'content'>[]> {
     date: post.date ? post.date.toISOString() : new Date().toISOString(),
     tags: post.tags ? JSON.parse(post.tags) : [],
     description: post.description || "",
+    image: post.image || undefined,
     author: "Shadil AM"
   }));
 }
