@@ -14,6 +14,11 @@ export function Header() {
         </Link>
         
         <div className="flex flex-1 items-center justify-end space-x-4">
+          <nav className="hidden md:flex items-center space-x-6 mr-4">
+            <Link href="/blog" className="text-sm font-medium transition-colors hover:text-primary">
+              Blog
+            </Link>
+          </nav>
           <div className="hidden md:flex items-center gap-2">
             <Button asChild>
                 <Link href={heroData.resume} target="_blank">Resume</Link>
@@ -34,9 +39,12 @@ export function Header() {
               </Button>
             </SheetTrigger>
             <SheetContent side="right">
-              <nav className="grid gap-6 text-lg font-medium mt-8">
+              <nav className="grid gap-4 text-lg font-medium mt-8">
                 <Link href="/" className="flex items-center gap-2 text-lg font-semibold mb-4">
                   <span>Shadil AM</span>
+                </Link>
+                <Link href="/blog" className="text-muted-foreground hover:text-primary transition-colors">
+                  Blog
                 </Link>
                 <div className="flex flex-col gap-4 mt-4">
                     <Button asChild>
