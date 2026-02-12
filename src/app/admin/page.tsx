@@ -7,16 +7,30 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { FileText, Briefcase, Cpu, FolderOpen } from "lucide-react";
 
 export default async function AdminDashboard() {
-  const [blogCount] = await db.select({ value: count() }).from(blogs);
-  const [projectCount] = await db.select({ value: count() }).from(projects);
-  const [expCount] = await db.select({ value: count() }).from(experience);
-  const [skillCount] = await db.select({ value: count() }).from(skills);
+  let blogCountValue = 0;
+  let projectCountValue = 0;
+  let expCountValue = 0;
+  let skillCountValue = 0;
+
+  try {
+    const [blogCount] = await db.select({ value: count() }).from(blogs);
+    const [projectCount] = await db.select({ value: count() }).from(projects);
+    const [expCount] = await db.select({ value: count() }).from(experience);
+    const [skillCount] = await db.select({ value: count() }).from(skills);
+    
+    blogCountValue = blogCount.value;
+    projectCountValue = projectCount.value;
+    expCountValue = expCount.value;
+    skillCountValue = skillCount.value;
+  } catch (error) {
+    console.error("Failed to fetch admin dashboard stats:", error);
+  }
 
   const stats = [
-    { label: "Blog Posts", value: blogCount.value, icon: FileText, color: "text-blue-500" },
-    { label: "Projects", value: projectCount.value, icon: FolderOpen, color: "text-purple-500" },
-    { label: "Experience", value: expCount.value, icon: Briefcase, color: "text-green-500" },
-    { label: "Skills", value: skillCount.value, icon: Cpu, color: "text-orange-500" },
+    { label: "Blog Posts", value: blogCountValue, icon: FileText, color: "text-blue-500" },
+    { label: "Projects", value: projectCountValue, icon: FolderOpen, color: "text-purple-500" },
+    { label: "Experience", value: expCountValue, icon: Briefcase, color: "text-green-500" },
+    { label: "Skills", value: skillCountValue, icon: Cpu, color: "text-orange-500" },
   ];
 
   return (

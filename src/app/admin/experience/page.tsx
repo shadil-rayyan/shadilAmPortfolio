@@ -9,7 +9,12 @@ import { Plus, Trash2, Pencil } from "lucide-react";
 import { deleteExperience } from "@/lib/actions";
 
 export default async function AdminExperiencePage() {
-  const allExp = await db.select().from(experience).orderBy(experience.createdAt);
+  let allExp: any[] = [];
+  try {
+    allExp = await db.select().from(experience).orderBy(experience.createdAt);
+  } catch (error) {
+    console.error("Failed to fetch admin experience list:", error);
+  }
 
   return (
     <div className="space-y-8">

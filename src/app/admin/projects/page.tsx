@@ -9,7 +9,12 @@ import { Plus, Trash2, Pencil, ExternalLink } from "lucide-react";
 import { deleteProject } from "@/lib/actions";
 
 export default async function AdminProjectsPage() {
-  const allProjectsData = await db.select().from(projects).orderBy(projects.createdAt);
+  let allProjectsData: any[] = [];
+  try {
+    allProjectsData = await db.select().from(projects).orderBy(projects.createdAt);
+  } catch (error) {
+    console.error("Failed to fetch admin projects:", error);
+  }
 
   return (
     <div className="space-y-8">

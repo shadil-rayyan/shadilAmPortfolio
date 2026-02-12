@@ -8,7 +8,12 @@ import { deleteSkill } from "@/lib/actions";
 import Link from "next/link";
 
 export default async function AdminSkillsPage() {
-  const allSkills = await db.select().from(skills);
+  let allSkills: any[] = [];
+  try {
+    allSkills = await db.select().from(skills);
+  } catch (error) {
+    console.error("Failed to fetch admin skills:", error);
+  }
 
   return (
     <div className="space-y-8">

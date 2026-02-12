@@ -8,7 +8,12 @@ import { Plus, Trash2, GraduationCap, Pencil } from "lucide-react";
 import { deleteEducation } from "@/lib/actions";
 
 export default async function AdminEducationPage() {
-  const allEdu = await db.select().from(education).orderBy(education.createdAt);
+  let allEdu: any[] = [];
+  try {
+    allEdu = await db.select().from(education).orderBy(education.createdAt);
+  } catch (error) {
+    console.error("Failed to fetch admin education history:", error);
+  }
 
   return (
     <div className="space-y-8">

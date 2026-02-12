@@ -8,7 +8,12 @@ import { Plus, FileText, Pencil, Trash2 } from "lucide-react";
 import { deleteBlogPost } from "@/lib/actions";
 
 export default async function AdminBlogPage() {
-  const allBlogs = await db.select().from(blogs).orderBy(blogs.createdAt);
+  let allBlogs: any[] = [];
+  try {
+    allBlogs = await db.select().from(blogs).orderBy(blogs.createdAt);
+  } catch (error) {
+    console.error("Failed to fetch admin blog posts:", error);
+  }
 
   return (
     <div className="space-y-8">
