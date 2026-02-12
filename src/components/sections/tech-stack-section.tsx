@@ -5,7 +5,12 @@ import { db } from "@/lib/db/index";
 import { techStack } from "@/lib/db/schema";
 
 export async function TechStackSection() {
-  const techCategories = await db.select().from(techStack);
+  let techCategories: any[] = [];
+  try {
+    techCategories = await db.select().from(techStack);
+  } catch (error) {
+    console.error("Failed to fetch tech stack categories:", error);
+  }
 
   return (
     <Section id="tech-stack">

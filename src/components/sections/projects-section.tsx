@@ -16,11 +16,16 @@ import { projects } from "@/lib/db/schema";
 import { desc, eq } from "drizzle-orm";
 
 export async function ProjectsSection() {
-  const featuredProjects = await db.select()
-    .from(projects)
-    .where(eq(projects.published, true))
-    .orderBy(desc(projects.createdAt))
-    .limit(3);
+  let featuredProjects: any[] = [];
+  try {
+    featuredProjects = await db.select()
+      .from(projects)
+      .where(eq(projects.published, true))
+      .orderBy(desc(projects.createdAt))
+      .limit(3);
+  } catch (error) {
+    console.error("Failed to fetch projects data:", error);
+  }
 
   return (
     <Section id="projects">

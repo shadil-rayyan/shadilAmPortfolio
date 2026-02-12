@@ -6,12 +6,20 @@ import { eq } from "drizzle-orm";
 
 export async function Footer() {
   const currentYear = new Date().getFullYear();
-  const [footerSetting] = await db.select().from(settings).where(eq(settings.key, "footer")).limit(1);
-  const footerData = footerSetting ? JSON.parse(footerSetting.value) : {
+  let footerData = {
     email: "test@example.com",
     github: "#",
     linkedin: "#"
   };
+
+  try {
+    const [footerSetting] = await db.select().from(settings).where(eq(settings.key, "footer")).limit(1);
+    if (footerSetting) {
+      footerData = JSON.parse(footerSetting.value);
+    }
+  } catch (error) {
+    console.error("Failed to fetch footer settings:", error);
+  }
 
   return (
     <footer className="bg-card border-t">

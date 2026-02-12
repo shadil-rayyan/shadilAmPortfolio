@@ -1,6 +1,3 @@
-"use client";
-
-import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -14,24 +11,17 @@ import { Badge } from "@/components/ui/badge";
 import Link from "next/link";
 import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
 import { Github } from "lucide-react";
 import { BackToTop } from "@/components/back-to-top";
 import type { Project } from "@/lib/types";
 import allProjectsData from "@/data/projects.json";
 
-export default function ProjectsPage() {
-  const [filter, setFilter] = useState("All");
+interface Props {
+  searchParams: Promise<{ category?: string }>;
+}
 
-  useEffect(() => {
-    document.title = "All Projects | Shadil AM";
-  }, []);
+export default async function ProjectsPage({ searchParams }: Props) {
+  const { category: filter = "All" } = await searchParams;
 
   const categories = ["All", ...Array.from(new Set(allProjectsData.map(p => p.category)))];
 
@@ -40,9 +30,35 @@ export default function ProjectsPage() {
       ? allProjectsData
       : allProjectsData.filter((project) => project.category === filter);
 
-  const renderContent = () => {
-    return (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+  return (
+    <div className="flex flex-col min-h-screen">
+      <Header />
+      <main className="flex-grow py-16 md:py-24">
+        <div className="container mx-auto px-4">
+          <h1 className="text-4xl font-bold tracking-tight text-center mb-4 sm:text-5xl text-primary">
+            All Projects
+          </h1>
+          <p className="text-center text-muted-foreground mb-12 text-lg">
+            Browse through my collection of projects.
+          </p>
+          <div className="flex justify-center mb-12">
+            <div className="flex flex-wrap gap-2 justify-center">
+              {categories.map((cat) => (
+                <Button 
+                  key={cat} 
+                  asChild 
+                  variant={filter === cat ? "default" : "outline"}
+                  size="sm"
+                >
+                  <Link href={cat === "All" ? "/projects" : `/projects?category=${cat}`}>
+                    {cat}
+                  </Link>
+                </Button>
+              ))}
+            </div>
+          </div>
+          
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
             {filteredProjects.map((project: Project) => (
               <Card key={project.slug} className="project-card-border flex flex-col overflow-hidden group transition-all duration-300 hover:shadow-xl hover:-translate-y-2">
                  <CardHeader className="p-0">
@@ -86,35 +102,6 @@ export default function ProjectsPage() {
               </Card>
             ))}
           </div>
-    );
-  }
-
-  return (
-    <div className="flex flex-col min-h-screen">
-      <Header />
-      <main className="flex-grow py-16 md:py-24">
-        <div className="container mx-auto px-4">
-          <h1 className="text-4xl font-bold tracking-tight text-center mb-4 sm:text-5xl text-primary">
-            All Projects
-          </h1>
-          <p className="text-center text-muted-foreground mb-12 text-lg">
-            Browse through my collection of projects.
-          </p>
-          <div className="flex justify-center mb-12">
-            <Select onValueChange={setFilter} defaultValue={filter}>
-              <SelectTrigger className="w-[180px]">
-                <SelectValue placeholder="Filter by category" />
-              </SelectTrigger>
-              <SelectContent>
-                {categories.map((category) => (
-                  <SelectItem key={category} value={category}>
-                    {category}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-          </div>
-          {renderContent()}
         </div>
       </main>
       <Footer />

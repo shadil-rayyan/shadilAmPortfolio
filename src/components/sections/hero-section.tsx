@@ -8,17 +8,27 @@ import { settings } from '@/lib/db/schema';
 import { eq } from 'drizzle-orm';
 
 export async function HeroSection() {
-  const [heroSetting] = await db.select().from(settings).where(eq(settings.key, "hero")).limit(1);
-  const [footerSetting] = await db.select().from(settings).where(eq(settings.key, "footer")).limit(1);
-  
-  const heroData = heroSetting ? JSON.parse(heroSetting.value) : {
+  let heroData = {
     name: "SHADIL AM",
     roles: ["Backend Developer", "Software Development"],
     description: "I am a motivated and versatile individual...",
     image: "./shadil.jpeg",
   };
-  
-  const footerData = footerSetting ? JSON.parse(footerSetting.value) : {};
+  let footerData: any = {};
+
+  try {
+    const [heroSetting] = await db.select().from(settings).where(eq(settings.key, "hero")).limit(1);
+    const [footerSetting] = await db.select().from(settings).where(eq(settings.key, "footer")).limit(1);
+    
+    if (heroSetting) {
+      heroData = JSON.parse(heroSetting.value);
+    }
+    if (footerSetting) {
+      footerData = JSON.parse(footerSetting.value);
+    }
+  } catch (error) {
+    console.error("Failed to fetch hero/footer settings:", error);
+  }
 
   return (
     <section className="py-24 md:py-32 lg:py-40 bg-card">

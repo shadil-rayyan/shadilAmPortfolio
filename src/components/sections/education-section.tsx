@@ -11,7 +11,12 @@ import { db } from "@/lib/db/index";
 import { education } from "@/lib/db/schema";
 
 export async function EducationSection() {
-  const educationData = await db.select().from(education);
+  let educationData: any[] = [];
+  try {
+    educationData = await db.select().from(education);
+  } catch (error) {
+    console.error("Failed to fetch education data:", error);
+  }
 
   return (
     <Section id="education">

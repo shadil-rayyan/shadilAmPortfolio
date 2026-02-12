@@ -12,7 +12,12 @@ import { experience } from "@/lib/db/schema";
 import { desc } from "drizzle-orm";
 
 export async function ExperienceSection() {
-  const experienceData = await db.select().from(experience).orderBy(desc(experience.createdAt));
+  let experienceData: any[] = [];
+  try {
+    experienceData = await db.select().from(experience).orderBy(desc(experience.createdAt));
+  } catch (error) {
+    console.error("Failed to fetch experience data:", error);
+  }
 
   return (
     <Section id="experience">

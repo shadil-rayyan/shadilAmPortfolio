@@ -9,13 +9,21 @@ import { settings } from '@/lib/db/schema';
 import { eq } from 'drizzle-orm';
 
 export async function CodeCompassSection() {
-  const [codeSetting] = await db.select().from(settings).where(eq(settings.key, "code_compass")).limit(1);
-  const codeData = codeSetting ? JSON.parse(codeSetting.value) : {
+  let codeData = {
       title: "CodeCompass",
       description: "CodeCompass is a vibrant community...",
       github: "https://github.com/CodeCompasss",
       image: "./codecompass.png"
   };
+
+  try {
+    const [codeSetting] = await db.select().from(settings).where(eq(settings.key, "code_compass")).limit(1);
+    if (codeSetting) {
+      codeData = JSON.parse(codeSetting.value);
+    }
+  } catch (error) {
+    console.error("Failed to fetch code compass settings:", error);
+  }
 
   return (
     <Section id="code-compass">

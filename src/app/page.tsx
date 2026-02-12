@@ -17,12 +17,20 @@ import { settings } from "@/lib/db/schema";
 import { eq } from "drizzle-orm";
 
 export default async function Home() {
-  const [contactSetting] = await db.select().from(settings).where(eq(settings.key, "contact")).limit(1);
-  const contactData = contactSetting ? JSON.parse(contactSetting.value) : {
+  let contactData = {
       email: "test@example.com",
       description: "Available for new projects...",
       linkedin: "#"
   };
+
+  try {
+    const [contactSetting] = await db.select().from(settings).where(eq(settings.key, "contact")).limit(1);
+    if (contactSetting) {
+      contactData = JSON.parse(contactSetting.value);
+    }
+  } catch (error) {
+    console.error("Failed to fetch contact settings:", error);
+  }
 
   return (
     <div className="flex flex-col min-h-screen">

@@ -17,7 +17,12 @@ const icons: Record<string, React.ReactNode> = {
 };
 
 export async function SkillsSection() {
-  const skillsData = await db.select().from(skills);
+  let skillsData: any[] = [];
+  try {
+    skillsData = await db.select().from(skills);
+  } catch (error) {
+    console.error("Failed to fetch skills data:", error);
+  }
 
   return (
     <Section id="skills" className="bg-muted/40">
