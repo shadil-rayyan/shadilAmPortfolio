@@ -4,7 +4,7 @@ import { SkillEditor } from "@/components/admin/skill-editor";
 
 export default async function NewSkillPage() {
   const { session } = await validateRequest();
-  if (!session) return redirect("/admin/login");
+  if (!session) return redirect("/login");
 
   return <SkillEditor />;
 }

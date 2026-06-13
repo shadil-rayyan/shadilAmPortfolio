@@ -4,7 +4,7 @@ import { ExperienceEditor } from "@/components/admin/experience-editor";
 
 export default async function NewExperiencePage() {
   const { session } = await validateRequest();
-  if (!session) return redirect("/admin/login");
+  if (!session) return redirect("/login");
 
   return <ExperienceEditor />;
 }

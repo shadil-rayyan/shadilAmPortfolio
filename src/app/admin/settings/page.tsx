@@ -9,7 +9,7 @@ import { SettingsEditor } from "@/components/admin/settings-editor";
 
 export default async function AdminSettingsPage() {
   const { session } = await validateRequest();
-  if (!session) return redirect("/admin/login");
+  if (!session) return redirect("/login");
 
   let hero = {};
   let footer = {};

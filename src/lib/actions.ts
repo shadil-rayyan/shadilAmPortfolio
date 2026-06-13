@@ -12,24 +12,31 @@ import { nanoid } from "nanoid";
 
 export async function createSession(idToken: string) {
     const decodedToken = await adminAuth.verifyIdToken(idToken);
-    const email = decodedToken.email;
 
-    const expiresIn = 60 * 60 * 24 * 5 * 1000; // 5 days
-    const sessionCookie = await adminAuth.createSessionCookie(idToken, { expiresIn });
-    
+    // Firebase expects milliseconds
+    const expiresInMs = 60 * 60 * 24 * 5 * 1000; // 5 days
+
+    const sessionCookie = await adminAuth.createSessionCookie(
+        idToken,
+        { expiresIn: expiresInMs }
+    );
+
+    // Browser cookie maxAge expects seconds
+    const maxAgeSeconds = 60 * 60 * 24 * 5; // 5 days
+
     (await cookies()).set("__session", sessionCookie, {
-        maxAge: expiresIn,
+        maxAge: maxAgeSeconds,
         httpOnly: true,
         secure: process.env.NODE_ENV === "production",
+        sameSite: "lax",
         path: "/",
     });
-    
+
     return { success: true };
 }
-
 export async function logout() {
-    (await cookies()).set("__session", "", { maxAge: 0 });
-    return redirect("/admin/login");
+    (await cookies()).delete("__session");
+    redirect("/login");
 }
 
 export async function createBlogPost(prevState: any, formData: FormData) {

@@ -5,9 +5,9 @@ import { redirect } from "next/navigation";
 
 export default async function AdminLayout({ children }: { children: React.ReactNode }) {
   const { session } = await validateRequest();
-  if (!session) {
-    return redirect("/admin/login");
-  }
+   if (!session) {
+     return redirect("/login");
+   }
 
   return (
     <div className="flex flex-col min-h-screen">

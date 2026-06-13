@@ -7,7 +7,7 @@ import { SkillEditor } from "@/components/admin/skill-editor";
 
 export default async function EditSkillPage({ params }: { params: Promise<{ id: string }> }) {
   const { session } = await validateRequest();
-  if (!session) return redirect("/admin/login");
+  if (!session) return redirect("/login");
 
   const { id } = await params;
   const [skill] = await db.select().from(skills).where(eq(skills.id, id)).limit(1);

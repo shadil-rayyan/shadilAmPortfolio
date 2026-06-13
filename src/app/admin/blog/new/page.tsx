@@ -6,7 +6,7 @@ import { Header } from "@/components/header";
 export default async function NewBlogPostPage() {
   const { session } = await validateRequest();
   if (!session) {
-    return redirect("/admin/login");
+    return redirect("/login");
   }
 
   return (

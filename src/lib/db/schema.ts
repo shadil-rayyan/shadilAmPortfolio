@@ -2,8 +2,8 @@ import { pgTable, text, timestamp, boolean, integer } from "drizzle-orm/pg-core"
 
 export const users = pgTable("users", {
   id: text("id").primaryKey(),
-  email: text("email").notNull().unique(),
-  name: text("name"),
+  username: text("username").notNull().unique(),
+  passwordHash: text("password_hash").notNull(),
 });
 
 export const sessions = pgTable("sessions", {
@@ -48,6 +48,7 @@ export const experience = pgTable("experience", {
   location: text("location"),
   period: text("period").notNull(),
   description: text("description"),
+  order: text("order"),
   createdAt: timestamp("created_at").defaultNow(),
 });
 

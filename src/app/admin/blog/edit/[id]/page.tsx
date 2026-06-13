@@ -9,7 +9,7 @@ import { Header } from "@/components/header";
 export default async function EditPostPage({ params }: { params: Promise<{ id: string }> }) {
   const { session } = await validateRequest();
   if (!session) {
-    return redirect("/admin/login");
+    return redirect("/login");
   }
 
   const { id } = await params;
