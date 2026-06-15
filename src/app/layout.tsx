@@ -1,11 +1,15 @@
-import type {Metadata} from 'next';
+import type { Metadata } from 'next';
 import './globals.css';
-import { Toaster } from "@/components/ui/toaster"
+import { Toaster } from "@/components/ui/toaster";
 import { ThemeProvider } from '@/components/theme-provider';
 
 const title = 'Shadil AM - Full Stack Developer';
-const description = 'The personal portfolio of Shadil AM, a passionate Full Stack Developer, Software Engineer, and Data Science enthusiast showcasing projects, skills, and professional experience.';
+const description =
+  'The personal portfolio of Shadil AM, a passionate Full Stack Developer, Software Engineer, and Data Science enthusiast showcasing projects, skills, and professional experience.';
 const url = 'https://shadil-rayyan.github.io/shadil-portfolio';
+
+// ✅ GA ID (hardcoded)
+const GA_ID = 'G-KE9MWYFEJ3';
 
 export const metadata: Metadata = {
   metadataBase: new URL(url),
@@ -13,7 +17,7 @@ export const metadata: Metadata = {
     default: title,
     template: `%s | Shadil AM`,
   },
-  description: description,
+  description,
   keywords: [
     'Shadil AM',
     'Full Stack Developer',
@@ -24,18 +28,18 @@ export const metadata: Metadata = {
     'Data Science',
     'Portfolio',
   ],
-  authors: [{ name: 'Shadil AM', url: url }],
+  authors: [{ name: 'Shadil AM', url }],
   creator: 'Shadil AM',
   openGraph: {
-    title: title,
-    description: description,
-    url: url,
+    title,
+    description,
+    url,
     siteName: title,
     locale: 'en_US',
     type: 'website',
     images: [
       {
-        url: `${url}/og-image.png`, // Assuming you will add an og-image.png to your public folder
+        url: `${url}/og-image.png`,
         width: 1200,
         height: 630,
         alt: title,
@@ -44,9 +48,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: title,
-    description: description,
-    creator: '@shadil_rayyan', // Add your twitter handle
+    title,
+    description,
+    creator: '@shadil_rayyan',
     images: [`${url}/og-image.png`],
   },
   robots: {
@@ -70,10 +74,37 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning className="scroll-smooth">
       <head>
+        {/* Fonts */}
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet" />
+        <link
+          href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap"
+          rel="stylesheet"
+        />
+
+        {/* ===================== */}
+        {/* Google Analytics (GA4) */}
+        {/* ===================== */}
+        <script
+          async
+          src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`}
+        ></script>
+
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              
+              gtag('js', new Date());
+              gtag('config', '${GA_ID}', {
+                page_path: window.location.pathname,
+              });
+            `,
+          }}
+        />
       </head>
+
       <body className="font-body antialiased bg-background text-foreground">
         <ThemeProvider
           attribute="class"
