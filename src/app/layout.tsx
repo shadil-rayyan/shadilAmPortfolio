@@ -2,14 +2,13 @@ import type { Metadata } from 'next';
 import './globals.css';
 import { Toaster } from "@/components/ui/toaster";
 import { ThemeProvider } from '@/components/theme-provider';
+import GoogleAnalytics from "@/components/GoogleAnalytics";
 
 const title = 'Shadil AM - Full Stack Developer';
 const description =
   'The personal portfolio of Shadil AM, a passionate Full Stack Developer, Software Engineer, and Data Science enthusiast showcasing projects, skills, and professional experience.';
 const url = 'https://shadil-rayyan.github.io/shadil-portfolio';
 
-// ✅ GA ID (hardcoded)
-const GA_ID = 'G-KE9MWYFEJ3';
 
 export const metadata: Metadata = {
   metadataBase: new URL(url),
@@ -82,27 +81,6 @@ export default function RootLayout({
           rel="stylesheet"
         />
 
-        {/* ===================== */}
-        {/* Google Analytics (GA4) */}
-        {/* ===================== */}
-        <script
-          async
-          src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`}
-        ></script>
-
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
-              window.dataLayer = window.dataLayer || [];
-              function gtag(){dataLayer.push(arguments);}
-              
-              gtag('js', new Date());
-              gtag('config', '${GA_ID}', {
-                page_path: window.location.pathname,
-              });
-            `,
-          }}
-        />
       </head>
 
       <body className="font-body antialiased bg-background text-foreground">
@@ -112,6 +90,7 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
+          <GoogleAnalytics />
           {children}
           <Toaster />
         </ThemeProvider>
