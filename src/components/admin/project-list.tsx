@@ -37,6 +37,12 @@ export function ProjectList({ projects }: ProjectListProps) {
 
   const projectMap = Object.fromEntries(projects.map((p) => [p.id, p]));
 
+  const handleDelete = async (id: string) => {
+    if (!confirm("Delete this project?")) return;
+    await deleteProject(id);
+    window.location.reload();
+  };
+
   return (
     <div className="border-2 rounded-xl overflow-hidden bg-card shadow-sm">
       <table className="w-full text-left border-collapse">
@@ -78,14 +84,9 @@ export function ProjectList({ projects }: ProjectListProps) {
                         <Button variant="ghost" size="sm" asChild>
                           <Link href={`/admin/projects/edit/${project.id}`}><Pencil className="h-4 w-4" /></Link>
                         </Button>
-                        <form action={async () => {
-                          "use server";
-                          await deleteProject(project.id);
-                        }}>
-                          <Button variant="ghost" size="sm" className="text-destructive hover:bg-destructive/10">
-                            <Trash2 className="h-4 w-4" />
-                          </Button>
-                        </form>
+                        <Button variant="ghost" size="sm" className="text-destructive hover:bg-destructive/10" onClick={() => handleDelete(project.id)}>
+                          <Trash2 className="h-4 w-4" />
+                        </Button>
                       </div>
                     </td>
                   </SortableTableRow>

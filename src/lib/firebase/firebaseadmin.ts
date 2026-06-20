@@ -1,13 +1,14 @@
 import admin from 'firebase-admin';
 
 // Initialize Firebase Admin SDK
-const serviceAccount = JSON.parse(process.env.FIREBASE_ADMIN_SDK_KEY as string);
+const serviceAccountKey = process.env.FIREBASE_ADMIN_SDK_KEY;
 
-if (!admin.apps.length) {
+if (serviceAccountKey && !admin.apps.length) {
+  const serviceAccount = JSON.parse(serviceAccountKey);
   admin.initializeApp({
     credential: admin.credential.cert(serviceAccount),
   });
 }
 
-export const adminAuth = admin.auth();
-export const adminFirestore = admin.firestore();
+export const adminAuth = admin.apps.length ? admin.auth() : null;
+export const adminFirestore = admin.apps.length ? admin.firestore() : null;

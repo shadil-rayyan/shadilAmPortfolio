@@ -36,6 +36,12 @@ export function ExperienceList({ experiences }: ExperienceListProps) {
 
   const expMap = Object.fromEntries(experiences.map((e) => [e.id, e]));
 
+  const handleDelete = async (id: string) => {
+    if (!confirm("Delete this experience?")) return;
+    await deleteExperience(id);
+    window.location.reload();
+  };
+
   return (
     <div className="border-2 rounded-xl overflow-hidden bg-card shadow-sm">
       <table className="w-full text-left border-collapse">
@@ -68,14 +74,9 @@ export function ExperienceList({ experiences }: ExperienceListProps) {
                         <Button variant="ghost" size="sm" asChild>
                           <Link href={`/admin/experience/edit/${exp.id}`}><Pencil className="h-4 w-4" /></Link>
                         </Button>
-                        <form action={async () => {
-                          "use server";
-                          await deleteExperience(exp.id);
-                        }}>
-                          <Button variant="ghost" size="sm" className="text-destructive hover:bg-destructive/10">
-                            <Trash2 className="h-4 w-4" />
-                          </Button>
-                        </form>
+                        <Button variant="ghost" size="sm" className="text-destructive hover:bg-destructive/10" onClick={() => handleDelete(exp.id)}>
+                          <Trash2 className="h-4 w-4" />
+                        </Button>
                       </div>
                     </td>
                   </SortableTableRow>

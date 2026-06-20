@@ -35,6 +35,12 @@ export function SkillList({ skills }: SkillListProps) {
 
   const skillMap = Object.fromEntries(skills.map((s) => [s.id, s]));
 
+  const handleDelete = async (id: string) => {
+    if (!confirm("Delete this skill?")) return;
+    await deleteSkill(id);
+    window.location.reload();
+  };
+
   return (
     <div className="space-y-2">
       <SortableGrid items={items} onReorder={handleReorder}>
@@ -53,14 +59,9 @@ export function SkillList({ skills }: SkillListProps) {
                     <Button variant="ghost" size="sm" asChild>
                       <Link href={`/admin/skills/edit/${skill.id}`}><Pencil className="h-3 w-3" /></Link>
                     </Button>
-                    <form action={async () => {
-                      "use server";
-                      await deleteSkill(skill.id);
-                    }}>
-                      <Button variant="ghost" size="sm" className="text-destructive hover:bg-destructive/10">
-                        <Trash2 className="h-3 w-3" />
-                      </Button>
-                    </form>
+                    <Button variant="ghost" size="sm" className="text-destructive hover:bg-destructive/10" onClick={() => handleDelete(skill.id)}>
+                      <Trash2 className="h-3 w-3" />
+                    </Button>
                   </div>
                 </div>
               </SortableGridItem>

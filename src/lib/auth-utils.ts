@@ -10,6 +10,7 @@ export const validateRequest = cache(async () => {
     }
 
     try {
+        if (!adminAuth) return { user: null, session: null };
         const decodedClaims = await adminAuth.verifySessionCookie(sessionCookie, true);
         return {
             user: {

@@ -11,6 +11,7 @@ import { adminAuth } from "./firebase/firebaseadmin";
 import { nanoid } from "nanoid";
 
 export async function createSession(idToken: string) {
+    if (!adminAuth) return { error: "Firebase not configured" };
     const decodedToken = await adminAuth.verifyIdToken(idToken);
 
     // Firebase expects milliseconds

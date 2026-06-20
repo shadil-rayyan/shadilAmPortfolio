@@ -34,6 +34,12 @@ export function BlogList({ blogs }: BlogListProps) {
     }
   };
 
+  const handleDelete = async (id: string) => {
+    if (!confirm("Delete this post?")) return;
+    await deleteBlogPost(id);
+    window.location.reload();
+  };
+
   const blogMap = Object.fromEntries(blogs.map((b) => [b.id, b]));
 
   return (
@@ -76,14 +82,9 @@ export function BlogList({ blogs }: BlogListProps) {
                         <Button variant="ghost" size="sm" asChild className="hover:text-primary">
                           <Link href={`/admin/blog/edit/${blog.id}`}><Pencil className="h-4 w-4" /></Link>
                         </Button>
-                        <form action={async () => {
-                          "use server";
-                          await deleteBlogPost(blog.id);
-                        }}>
-                          <Button variant="ghost" size="sm" className="text-destructive hover:bg-destructive/10">
-                            <Trash2 className="h-4 w-4" />
-                          </Button>
-                        </form>
+                        <Button variant="ghost" size="sm" className="text-destructive hover:bg-destructive/10" onClick={() => handleDelete(blog.id)}>
+                          <Trash2 className="h-4 w-4" />
+                        </Button>
                       </div>
                     </td>
                   </SortableTableRow>

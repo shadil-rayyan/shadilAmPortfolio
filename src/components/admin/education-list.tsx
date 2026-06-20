@@ -36,6 +36,12 @@ export function EducationList({ educations }: EducationListProps) {
 
   const eduMap = Object.fromEntries(educations.map((e) => [e.id, e]));
 
+  const handleDelete = async (id: string) => {
+    if (!confirm("Delete this education?")) return;
+    await deleteEducation(id);
+    window.location.reload();
+  };
+
   return (
     <div className="space-y-2">
       <SortableList items={items} onReorder={handleReorder}>
@@ -58,14 +64,9 @@ export function EducationList({ educations }: EducationListProps) {
                   <Button variant="ghost" size="sm" asChild>
                     <Link href={`/admin/education/edit/${edu.id}`}><Pencil className="h-4 w-4" /></Link>
                   </Button>
-                  <form action={async () => {
-                    "use server";
-                    await deleteEducation(edu.id);
-                  }}>
-                    <Button variant="ghost" size="sm" className="text-destructive hover:bg-destructive/10">
-                      <Trash2 className="h-4 w-4" />
-                    </Button>
-                  </form>
+                  <Button variant="ghost" size="sm" className="text-destructive hover:bg-destructive/10" onClick={() => handleDelete(edu.id)}>
+                    <Trash2 className="h-4 w-4" />
+                  </Button>
                 </div>
               </div>
             </SortableCard>
