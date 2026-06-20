@@ -425,3 +425,94 @@ export async function deleteEducation(id: string) {
   revalidatePath("/admin/education");
   return { success: true };
 }
+
+// Reorder actions
+export async function reorderBlogPosts(ids: string[]) {
+  const { session } = await validateRequest();
+  if (!session) return { error: "Unauthorized" };
+  try {
+    for (let i = 0; i < ids.length; i++) {
+      await db.update(blogs).set({ order: i }).where(eq(blogs.id, ids[i]));
+    }
+    revalidatePath("/admin/blog");
+    revalidatePath("/blog");
+    return { success: true };
+  } catch (e) {
+    return { error: "Error reordering blog posts" };
+  }
+}
+
+export async function reorderProjects(ids: string[]) {
+  const { session } = await validateRequest();
+  if (!session) return { error: "Unauthorized" };
+  try {
+    for (let i = 0; i < ids.length; i++) {
+      await db.update(projects).set({ order: i }).where(eq(projects.id, ids[i]));
+    }
+    revalidatePath("/admin/projects");
+    revalidatePath("/");
+    return { success: true };
+  } catch (e) {
+    return { error: "Error reordering projects" };
+  }
+}
+
+export async function reorderExperience(ids: string[]) {
+  const { session } = await validateRequest();
+  if (!session) return { error: "Unauthorized" };
+  try {
+    for (let i = 0; i < ids.length; i++) {
+      await db.update(experience).set({ order: String(i) }).where(eq(experience.id, ids[i]));
+    }
+    revalidatePath("/admin/experience");
+    revalidatePath("/");
+    return { success: true };
+  } catch (e) {
+    return { error: "Error reordering experience" };
+  }
+}
+
+export async function reorderEducation(ids: string[]) {
+  const { session } = await validateRequest();
+  if (!session) return { error: "Unauthorized" };
+  try {
+    for (let i = 0; i < ids.length; i++) {
+      await db.update(education).set({ order: i }).where(eq(education.id, ids[i]));
+    }
+    revalidatePath("/admin/education");
+    revalidatePath("/");
+    return { success: true };
+  } catch (e) {
+    return { error: "Error reordering education" };
+  }
+}
+
+export async function reorderSkills(ids: string[]) {
+  const { session } = await validateRequest();
+  if (!session) return { error: "Unauthorized" };
+  try {
+    for (let i = 0; i < ids.length; i++) {
+      await db.update(skills).set({ order: i }).where(eq(skills.id, ids[i]));
+    }
+    revalidatePath("/admin/skills");
+    revalidatePath("/");
+    return { success: true };
+  } catch (e) {
+    return { error: "Error reordering skills" };
+  }
+}
+
+export async function reorderTechStack(ids: string[]) {
+  const { session } = await validateRequest();
+  if (!session) return { error: "Unauthorized" };
+  try {
+    for (let i = 0; i < ids.length; i++) {
+      await db.update(techStack).set({ order: i }).where(eq(techStack.id, ids[i]));
+    }
+    revalidatePath("/admin/settings");
+    revalidatePath("/");
+    return { success: true };
+  } catch (e) {
+    return { error: "Error reordering tech stack" };
+  }
+}

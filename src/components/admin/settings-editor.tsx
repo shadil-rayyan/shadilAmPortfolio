@@ -1,7 +1,7 @@
 "use client";
 
 import { useActionState, useState, useEffect, useRef } from "react";
-import { updateSettings, createTechStack, updateTechStack, deleteTechStack } from "@/lib/actions";
+import { updateSettings, createTechStack, updateTechStack, deleteTechStack, reorderTechStack } from "@/lib/actions";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -10,6 +10,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Save, User, Share2, Cpu, Plus, Trash2, ChevronDown, ChevronUp, Globe, Mail, LinkIcon, FileText, ImageIcon, Hash, Briefcase, Building2, MapPin, Calendar, GraduationCap } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import { SortableList, SortableItem } from "./sortable-list";
 
 interface SettingsEditorProps {
   hero: any;
@@ -422,6 +423,9 @@ function TechStackSection({ techStacks, newTechAction, isNewTechPending, newTech
   newTechState: any;
 }) {
   const [expandedId, setExpandedId] = useState<string | null>(null);
+  const [items, setItems] = useState(techStacks.map((s) => s.id));
+  const [isReordering, setIsReordering] = useState(false);
+  const { toast } = useToast();
 
   useEffect(() => {
     if (newTechState?.success) {
@@ -429,22 +433,47 @@ function TechStackSection({ techStacks, newTechAction, isNewTechPending, newTech
     }
   }, [newTechState]);
 
+  const handleReorder = async (newOrder: string[]) => {
+    setItems(newOrder);
+    setIsReordering(true);
+    const result = await reorderTechStack(newOrder);
+    setIsReordering(false);
+    if (result?.error) {
+      toast({ title: "Error reordering", variant: "destructive" });
+    }
+  };
+
+  const stackMap = Object.fromEntries(techStacks.map((s) => [s.id, s]));
+
   return (
     <div className="space-y-4">
       <h2 className="text-2xl font-bold flex items-center gap-2">
         <Cpu className="h-6 w-6 text-primary" /> Tech Stack Categories
       </h2>
 
-      <div className="space-y-3">
-        {techStacks.map((stack) => (
-          <TechStackCard
-            key={stack.id}
-            stack={stack}
-            isExpanded={expandedId === stack.id}
-            onToggle={() => setExpandedId(expandedId === stack.id ? null : stack.id)}
-          />
-        ))}
-      </div>
+      <SortableList items={items} onReorder={handleReorder}>
+        <div className="space-y-3">
+          {items.map((id) => {
+            const stack = stackMap[id];
+            if (!stack) return null;
+            return (
+              <SortableItem key={stack.id} id={stack.id}>
+                <TechStackCard
+                  stack={stack}
+                  isExpanded={expandedId === stack.id}
+                  onToggle={() => setExpandedId(expandedId === stack.id ? null : stack.id)}
+                />
+              </SortableItem>
+            );
+          })}
+        </div>
+      </SortableList>
+
+      {isReordering && (
+        <div className="p-2 text-center text-sm text-muted-foreground bg-muted/20 rounded">
+          Saving order...
+        </div>
+      )}
 
       <Card className="border-2 border-dashed">
         <CardContent className="pt-6">

@@ -21,6 +21,7 @@ export const blogs = pgTable("blogs", {
   tags: text("tags"),
   image: text("image"),
   published: boolean("published").default(false),
+  order: integer("order").default(0),
   createdAt: timestamp("created_at").defaultNow(),
   updatedAt: timestamp("updated_at").defaultNow(),
 });
@@ -38,6 +39,7 @@ export const projects = pgTable("projects", {
   github: text("github"),
   webapp: text("webapp"),
   published: boolean("published").default(false),
+  order: integer("order").default(0),
   createdAt: timestamp("created_at").defaultNow(),
 });
 
@@ -58,6 +60,7 @@ export const skills = pgTable("skills", {
   description: text("description"),
   icon: text("icon"), 
   category: text("category"),
+  order: integer("order").default(0),
   createdAt: timestamp("created_at").defaultNow(),
 });
 
@@ -76,6 +79,7 @@ export const education = pgTable("education", {
   grade: text("grade"),
   description: text("description"),
   image: text("image"),
+  order: integer("order").default(0),
   createdAt: timestamp("created_at").defaultNow(),
 });
 
@@ -83,5 +87,6 @@ export const techStack = pgTable("tech_stack", {
   id: text("id").primaryKey(),
   name: text("name").notNull(),
   items: text("items").notNull(), // JSON string
+  order: integer("order").default(0),
   createdAt: timestamp("created_at").defaultNow(),
 });
