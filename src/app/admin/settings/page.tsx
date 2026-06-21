@@ -1,8 +1,8 @@
 export const dynamic = "force-dynamic";
 
 import { db } from "@/lib/db/index";
-import { settings, techStack } from "@/lib/db/schema";
-import { eq } from "drizzle-orm";
+import { settings, techStack, socialMedia } from "@/lib/db/schema";
+import { eq, asc } from "drizzle-orm";
 import { validateRequest } from "@/lib/auth-utils";
 import { redirect } from "next/navigation";
 import { SettingsEditor } from "@/components/admin/settings-editor";
@@ -16,6 +16,7 @@ export default async function AdminSettingsPage() {
   let contact = {};
   let codeCompass = {};
   let techStacks: any[] = [];
+  let socialLinks: any[] = [];
 
   try {
     const [heroSetting] = await db.select().from(settings).where(eq(settings.key, "hero")).limit(1);
@@ -23,6 +24,7 @@ export default async function AdminSettingsPage() {
     const [contactSetting] = await db.select().from(settings).where(eq(settings.key, "contact")).limit(1);
     const [codeCompassSetting] = await db.select().from(settings).where(eq(settings.key, "code_compass")).limit(1);
     techStacks = await db.select().from(techStack);
+    socialLinks = await db.select().from(socialMedia).orderBy(asc(socialMedia.order));
 
     hero = heroSetting ? JSON.parse(heroSetting.value) : {};
     footer = footerSetting ? JSON.parse(footerSetting.value) : {};
@@ -38,7 +40,8 @@ export default async function AdminSettingsPage() {
       footer={footer} 
       contact={contact}
       codeCompass={codeCompass}
-      techStacks={techStacks} 
+      techStacks={techStacks}
+      socialLinks={socialLinks}
     />
   );
 }

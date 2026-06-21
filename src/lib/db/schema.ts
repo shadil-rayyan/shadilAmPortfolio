@@ -90,3 +90,12 @@ export const techStack = pgTable("tech_stack", {
   order: integer("order").default(0),
   createdAt: timestamp("created_at").defaultNow(),
 });
+
+export const socialMedia = pgTable("social_media", {
+  id: text("id").primaryKey(),
+  name: text("name").notNull(),
+  url: text("url").notNull(),
+  icon: text("icon").notNull(), // lucide icon name
+  order: integer("order").default(0),
+  createdAt: timestamp("created_at").defaultNow(),
+});

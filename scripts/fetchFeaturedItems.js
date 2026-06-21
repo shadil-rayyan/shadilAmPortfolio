@@ -1,0 +1,1 @@
+const fetch = require('node-fetch');\n\nfetch('https://example.com/api/featured-items')\n  .then(response => response.json())\n  .then(data => console.log(data.slice(0, 3)))\n  .catch(error => console.error(error));

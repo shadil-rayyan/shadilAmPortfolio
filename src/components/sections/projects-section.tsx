@@ -13,7 +13,7 @@ import { Badge } from "@/components/ui/badge";
 import { ArrowRight, Github } from "lucide-react";
 import { db } from "@/lib/db/index";
 import { projects } from "@/lib/db/schema";
-import { desc, eq } from "drizzle-orm";
+import { asc, eq } from "drizzle-orm";
 
 export async function ProjectsSection() {
   let featuredProjects: any[] = [];
@@ -21,7 +21,7 @@ export async function ProjectsSection() {
     featuredProjects = await db.select()
       .from(projects)
       .where(eq(projects.published, true))
-      .orderBy(desc(projects.createdAt))
+      .orderBy(asc(projects.order))
       .limit(3);
   } catch (error) {
     console.error("Failed to fetch projects data:", error);

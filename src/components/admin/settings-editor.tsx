@@ -1,14 +1,14 @@
 "use client";
 
 import { useActionState, useState, useEffect, useRef } from "react";
-import { updateSettings, createTechStack, updateTechStack, deleteTechStack, reorderTechStack } from "@/lib/actions";
+import { updateSettings, createTechStack, updateTechStack, deleteTechStack, reorderTechStack, createSocialMedia, updateSocialMedia, deleteSocialMedia, reorderSocialMedia } from "@/lib/actions";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Save, User, Share2, Cpu, Plus, Trash2, ChevronDown, ChevronUp, Globe, Mail, LinkIcon, FileText, ImageIcon, Hash, Briefcase, Building2, MapPin, Calendar, GraduationCap } from "lucide-react";
+import { Save, User, Share2, Cpu, Plus, Trash2, ChevronDown, ChevronUp, Globe, Mail, LinkIcon, FileText, ImageIcon, Hash, Briefcase, Building2, MapPin, Calendar, GraduationCap, ExternalLink } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { SortableList, SortableItem } from "./sortable-list";
 
@@ -18,15 +18,17 @@ interface SettingsEditorProps {
   contact: any;
   codeCompass: any;
   techStacks: any[];
+  socialLinks: any[];
 }
 
-export function SettingsEditor({ hero, footer, contact, codeCompass, techStacks }: SettingsEditorProps) {
+export function SettingsEditor({ hero, footer, contact, codeCompass, techStacks, socialLinks }: SettingsEditorProps) {
   const { toast } = useToast();
   const [heroState, heroAction, isHeroPending] = useActionState(updateSettings, null);
   const [footerState, footerAction, isFooterPending] = useActionState(updateSettings, null);
   const [contactState, contactAction, isContactPending] = useActionState(updateSettings, null);
   const [codeState, codeAction, isCodePending] = useActionState(updateSettings, null);
   const [newTechState, newTechAction, isNewTechPending] = useActionState(createTechStack, null);
+  const [newSocialState, newSocialAction, isNewSocialPending] = useActionState(createSocialMedia, null);
 
   useEffect(() => {
     if (heroState?.success) toast({ title: "Hero settings saved" });
@@ -47,6 +49,11 @@ export function SettingsEditor({ hero, footer, contact, codeCompass, techStacks 
     if (codeState?.success) toast({ title: "CodeCompass settings saved" });
     if (codeState?.error) toast({ title: "Error saving CodeCompass settings", variant: "destructive" });
   }, [codeState, toast]);
+
+  useEffect(() => {
+    if (newSocialState?.success) toast({ title: "Social media link added" });
+    if (newSocialState?.error) toast({ title: "Error adding social media link", variant: "destructive" });
+  }, [newSocialState, toast]);
 
   return (
     <div className="space-y-8 pb-20">
@@ -97,6 +104,13 @@ export function SettingsEditor({ hero, footer, contact, codeCompass, techStacks 
         newTechAction={newTechAction}
         isNewTechPending={isNewTechPending}
         newTechState={newTechState}
+      />
+
+      <SocialMediaSection
+        socialLinks={socialLinks}
+        newSocialAction={newSocialAction}
+        isNewSocialPending={isNewSocialPending}
+        newSocialState={newSocialState}
       />
     </div>
   );
@@ -628,6 +642,209 @@ function TechStackCard({ stack, isExpanded, onToggle }: {
               onClick={handleSave}
               disabled={isSaving}
             >
+              {isSaving ? "Saving..." : <><Save className="mr-2 h-4 w-4" /> Save</>}
+            </Button>
+          </div>
+        </div>
+      )}
+    </Card>
+  );
+}
+
+const SOCIAL_ICON_OPTIONS = [
+  "Github",
+  "Linkedin",
+  "Twitter",
+  "Instagram",
+  "Facebook",
+  "Youtube",
+  "Globe",
+  "Mail",
+  "MessageCircle",
+  "Send",
+  "Rss",
+];
+
+function SocialMediaSection({ socialLinks, newSocialAction, isNewSocialPending, newSocialState }: {
+  socialLinks: any[];
+  newSocialAction: any;
+  isNewSocialPending: boolean;
+  newSocialState: any;
+}) {
+  const [expandedId, setExpandedId] = useState<string | null>(null);
+  const [items, setItems] = useState(socialLinks.map((s) => s.id));
+  const [isReordering, setIsReordering] = useState(false);
+  const { toast } = useToast();
+
+  useEffect(() => {
+    if (newSocialState?.success) {
+      window.location.reload();
+    }
+  }, [newSocialState]);
+
+  const handleReorder = async (newOrder: string[]) => {
+    setItems(newOrder);
+    setIsReordering(true);
+    const result = await reorderSocialMedia(newOrder);
+    setIsReordering(false);
+    if (result?.error) {
+      toast({ title: "Error reordering", variant: "destructive" });
+    }
+  };
+
+  const socialMap = Object.fromEntries(socialLinks.map((s) => [s.id, s]));
+
+  return (
+    <div className="space-y-4">
+      <h2 className="text-2xl font-bold flex items-center gap-2">
+        <Share2 className="h-6 w-6 text-primary" /> Social Media Links
+      </h2>
+
+      <SortableList items={items} onReorder={handleReorder}>
+        <div className="space-y-3">
+          {items.map((id) => {
+            const link = socialMap[id];
+            if (!link) return null;
+            return (
+              <SortableItem key={link.id} id={link.id}>
+                <SocialMediaCard
+                  link={link}
+                  isExpanded={expandedId === link.id}
+                  onToggle={() => setExpandedId(expandedId === link.id ? null : link.id)}
+                />
+              </SortableItem>
+            );
+          })}
+        </div>
+      </SortableList>
+
+      {isReordering && (
+        <div className="p-2 text-center text-sm text-muted-foreground bg-muted/20 rounded">
+          Saving order...
+        </div>
+      )}
+
+      <Card className="border-2 border-dashed">
+        <CardContent className="pt-6">
+          <form action={newSocialAction} className="flex gap-3 items-end">
+            <div className="flex-1 space-y-2">
+              <Label htmlFor="new-social-name">Name</Label>
+              <Input
+                id="new-social-name"
+                name="name"
+                placeholder="e.g., GitHub, LinkedIn"
+                required
+              />
+            </div>
+            <div className="flex-1 space-y-2">
+              <Label htmlFor="new-social-url">URL</Label>
+              <Input
+                id="new-social-url"
+                name="url"
+                placeholder="https://..."
+                required
+              />
+            </div>
+            <div className="w-40 space-y-2">
+              <Label htmlFor="new-social-icon">Icon</Label>
+              <select
+                id="new-social-icon"
+                name="icon"
+                required
+                className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+              >
+                {SOCIAL_ICON_OPTIONS.map((icon) => (
+                  <option key={icon} value={icon}>{icon}</option>
+                ))}
+              </select>
+            </div>
+            <Button type="submit" disabled={isNewSocialPending}>
+              {isNewSocialPending ? "Adding..." : <><Plus className="mr-2 h-4 w-4" /> Add</>}
+            </Button>
+          </form>
+        </CardContent>
+      </Card>
+    </div>
+  );
+}
+
+function SocialMediaCard({ link, isExpanded, onToggle }: {
+  link: any;
+  isExpanded: boolean;
+  onToggle: () => void;
+}) {
+  const [name, setName] = useState(link.name);
+  const [url, setUrl] = useState(link.url);
+  const [icon, setIcon] = useState(link.icon);
+  const [isSaving, setIsSaving] = useState(false);
+  const { toast } = useToast();
+
+  const handleSave = async () => {
+    setIsSaving(true);
+    const formData = new FormData();
+    formData.set("id", link.id);
+    formData.set("name", name);
+    formData.set("url", url);
+    formData.set("icon", icon);
+    try {
+      await updateSocialMedia(formData);
+      toast({ title: `${name} updated` });
+    } catch (error) {
+      toast({ title: "Error updating link", variant: "destructive" });
+    }
+    setIsSaving(false);
+  };
+
+  const handleDelete = async () => {
+    if (confirm(`Delete "${name}" link?`)) {
+      await deleteSocialMedia(link.id);
+      window.location.reload();
+    }
+  };
+
+  return (
+    <Card className="overflow-hidden">
+      <div
+        className="flex items-center justify-between p-4 cursor-pointer hover:bg-muted/50"
+        onClick={onToggle}
+      >
+        <div className="flex items-center gap-3">
+          <span className="font-semibold">{name}</span>
+          <span className="text-sm text-muted-foreground truncate max-w-xs">{url}</span>
+        </div>
+        {isExpanded ? <ChevronUp className="h-4 w-4" /> : <ChevronDown className="h-4 w-4" />}
+      </div>
+
+      {isExpanded && (
+        <div className="border-t p-4 space-y-4">
+          <div className="grid gap-4 md:grid-cols-2">
+            <div className="space-y-2">
+              <Label>Name</Label>
+              <Input value={name} onChange={(e) => setName(e.target.value)} placeholder="Platform name" />
+            </div>
+            <div className="space-y-2">
+              <Label>URL</Label>
+              <Input value={url} onChange={(e) => setUrl(e.target.value)} placeholder="https://..." />
+            </div>
+          </div>
+          <div className="space-y-2">
+            <Label>Icon</Label>
+            <select
+              value={icon}
+              onChange={(e) => setIcon(e.target.value)}
+              className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+            >
+              {SOCIAL_ICON_OPTIONS.map((opt) => (
+                <option key={opt} value={opt}>{opt}</option>
+              ))}
+            </select>
+          </div>
+
+          <div className="flex justify-between">
+            <Button type="button" variant="destructive" size="sm" onClick={handleDelete}>
+              <Trash2 className="mr-2 h-4 w-4" /> Delete
+            </Button>
+            <Button type="button" size="sm" onClick={handleSave} disabled={isSaving}>
               {isSaving ? "Saving..." : <><Save className="mr-2 h-4 w-4" /> Save</>}
             </Button>
           </div>

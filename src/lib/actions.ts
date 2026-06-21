@@ -125,7 +125,7 @@ export async function deleteBlogPost(id: string) {
 }
 
 // Projects
-import { settings, projects, experience, skills, education, techStack } from "@/lib/db/schema";
+import { settings, projects, experience, skills, education, techStack, socialMedia } from "@/lib/db/schema";
 
 // Tech Stack
 export async function deleteTechStack(id: string) {
@@ -515,5 +515,76 @@ export async function reorderTechStack(ids: string[]) {
     return { success: true };
   } catch (e) {
     return { error: "Error reordering tech stack" };
+  }
+}
+
+// Social Media
+export async function createSocialMedia(prevState: any, formData: FormData) {
+  const { session } = await validateRequest();
+  if (!session) return { error: "Unauthorized" };
+
+  const name = formData.get("name") as string;
+  const url = formData.get("url") as string;
+  const icon = formData.get("icon") as string;
+
+  if (!name || !url || !icon) {
+    return { error: "Missing required fields" };
+  }
+
+  try {
+    await db.insert(socialMedia).values({
+      id: nanoid(),
+      name,
+      url,
+      icon,
+    });
+    revalidatePath("/");
+    revalidatePath("/admin/settings");
+    return { success: true };
+  } catch (e) {
+    return { error: "Error creating social media link" };
+  }
+}
+
+export async function updateSocialMedia(formData: FormData) {
+  const { session } = await validateRequest();
+  if (!session) return { error: "Unauthorized" };
+
+  const id = formData.get("id") as string;
+  const name = formData.get("name") as string;
+  const url = formData.get("url") as string;
+  const icon = formData.get("icon") as string;
+
+  try {
+    await db.update(socialMedia).set({ name, url, icon }).where(eq(socialMedia.id, id));
+    revalidatePath("/");
+    revalidatePath("/admin/settings");
+    return { success: true };
+  } catch (e) {
+    return { error: "Error updating social media link" };
+  }
+}
+
+export async function deleteSocialMedia(id: string) {
+  const { session } = await validateRequest();
+  if (!session) return { error: "Unauthorized" };
+  await db.delete(socialMedia).where(eq(socialMedia.id, id));
+  revalidatePath("/");
+  revalidatePath("/admin/settings");
+  return { success: true };
+}
+
+export async function reorderSocialMedia(ids: string[]) {
+  const { session } = await validateRequest();
+  if (!session) return { error: "Unauthorized" };
+  try {
+    for (let i = 0; i < ids.length; i++) {
+      await db.update(socialMedia).set({ order: i }).where(eq(socialMedia.id, ids[i]));
+    }
+    revalidatePath("/admin/settings");
+    revalidatePath("/");
+    return { success: true };
+  } catch (e) {
+    return { error: "Error reordering social media" };
   }
 }

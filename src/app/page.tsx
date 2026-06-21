@@ -12,6 +12,7 @@ import { Footer } from "@/components/footer";
 import { TechStackSection } from "@/components/sections/tech-stack-section";
 import { BackToTop } from "@/components/back-to-top";
 import { CodeCompassSection } from "@/components/sections/code-compass-section";
+import { SocialMediaSection } from "@/components/sections/social-media-section";
 import { db } from "@/lib/db/index";
 import { settings } from "@/lib/db/schema";
 import { eq } from "drizzle-orm";
@@ -46,6 +47,7 @@ export default async function Home() {
         <EducationSection />
         <ContactSection data={contactData} />
       </main>
+      <SocialMediaSection />
       <Footer />
       <BackToTop />
     </div>
